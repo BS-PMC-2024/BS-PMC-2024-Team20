@@ -8,21 +8,24 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/BS-PMC-2024/BS-PMC-2024-Team20.git'
+                checkout scm
             }
         }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("shimonbaruch/your-image-name", "src/connections/")
+                    def dockerImage = docker.build("${env.DOCKER_HUB_USERNAME}/your-image-name")
                 }
             }
         }
+
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('', 'docker-hub-credentials') {
-                        docker.image("shimonbaruch/your-image-name").push()
+                    docker.withRegistry('', "${env.DOCKER_HUB_CREDENTIALS}") {
+                        def dockerImage = docker.build("${env.DOCKER_HUB_USERNAME}/your-image-name")
+                        dockerImage.push()
                     }
                 }
             }
