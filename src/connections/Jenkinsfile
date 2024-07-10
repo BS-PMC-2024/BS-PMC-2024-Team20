@@ -2,7 +2,14 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+        // Load environment variables from .env file
+        DOTENV = readFile('C:\\Users\\asus\\Desktop\\Ai-Aid\\.env').split("\n").collectEntries { entry ->
+            def pair = entry.split("=")
+            [(pair.first().trim()): pair.last().trim()]
+        }
+
+        DOCKER_HUB_USERNAME = DOTENV['DOCKER_HUB_USERNAME']
+        DOCKER_HUB_PASSWORD = DOTENV['DOCKER_HUB_PASSWORD']
     }
 
     stages {
@@ -11,22 +18,24 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerImage = docker.build("${env.DOCKER_HUB_USERNAME}/your-image-name")
+                    def dockerHubUsername = env.DOCKER_HUB_USERNAME
+                    def dockerHubPassword = env.DOCKER_HUB_PASSWORD
+
+                    sh "docker build -t ${dockerHubUsername}/your-image-name ."
                 }
             }
         }
-
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('', "${env.DOCKER_HUB_CREDENTIALS}") {
-                        def dockerImage = docker.build("${env.DOCKER_HUB_USERNAME}/your-image-name")
-                        dockerImage.push()
-                    }
+                    def dockerHubUsername = env.DOCKER_HUB_USERNAME
+                    def dockerHubPassword = env.DOCKER_HUB_PASSWORD
+
+                    sh "echo ${dockerHubPassword} | docker login -u ${dockerHubUsername} --password-stdin"
+                    sh "docker push ${dockerHubUsername}/your-image-name"
                 }
             }
         }
