@@ -49,7 +49,11 @@ const App = () => {
     };
     checkUser();
   }, [navigate, user]);
-
+/* 
+BSPMS2420-17
+This function takes care of the user's logout
+ and basically after logging out it takes him to the home page
+*/ 
   const handleLogout = () => {
     auth.signOut().then(() => {
       setUser(null);
