@@ -1,6 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
-import { app } from '../connections/firebaseConfig'; // ייבוא הפונקציה של Firebase
+import { app } from '../connections/firebaseConfig'; 
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -9,17 +9,18 @@ export const registerUser = async (email, password) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
   
-  // שמירת תפקיד ברירת המחדל (סטודנט)
   await setDoc(doc(db, 'userRoles', user.uid), { role: 'student',email: email });
   
   return user;
 };
 
+/* BSPMS2420-4 This function verifies whether the user exists in the database,
+ if so it will transfer him to the page specific to him, 
+ otherwise it will show him an error message */
 export const loginUser = async (email, password) => {
   const userCredential = await signInWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
   
-  // הבאת תפקיד המשתמש מ-Firestore
   const userRoleDoc = await getDoc(doc(db, 'userRoles', user.uid));
   if (!userRoleDoc.exists()) {
     throw new Error('No such user role document!');
@@ -33,7 +34,6 @@ export const loginUser = async (email, password) => {
   return { user, role: userRole };
 };
 
-// הפונקציה להחזיר את כל המשתמשים
 export const getAllUsers = async () => {
   const usersSnapshot = await getDocs(collection(db, 'userRoles'));
   const users = [];
@@ -43,12 +43,11 @@ export const getAllUsers = async () => {
   return users;
 };
 
-// הפונקציה לעדכן תפקיד משתמש
+
 export const updateUserRole = async (uid, newRole) => {
   await updateDoc(doc(db, 'userRoles', uid), { role: newRole });
 };
 
-// הפונקציה להחזיר את תפקיד המשתמש הנוכחי
 export const getRole = async () => {
   const user = auth.currentUser;
   if (!user) {
