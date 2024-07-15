@@ -6,6 +6,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,8 +16,10 @@ const RegisterModal = ({ isOpen, onClose }) => {
       return;
     }
     try {
-      const user = await registerUser(email, password);
+      const user = await registerUser(email, password, firstName, lastName);
       console.log('User registered:', user);
+      // Save user info to localStorage
+      localStorage.setItem('user', JSON.stringify({ firstName, lastName, email }));
       onClose(); // סגירת החלון לאחר רישום
     } catch (err) {
       console.error('Failed to register user:', err);
@@ -29,6 +33,26 @@ const RegisterModal = ({ isOpen, onClose }) => {
       <div className="modal-content">
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="firstName">First Name:</label>
+            <input
+              type="text"
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastName">Last Name:</label>
+            <input
+              type="text"
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input
@@ -69,4 +93,4 @@ const RegisterModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default RegisterModal;
+export default RegisterModal;
