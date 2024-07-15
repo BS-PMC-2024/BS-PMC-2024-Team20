@@ -62,3 +62,4 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
 };
 
 export default LoginModal;
+

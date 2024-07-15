@@ -9,6 +9,7 @@ body {
   font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
   color: #333;
+  overflow-x: hidden; /* מונע גלילה אופקית */
 }
 
 .header {
@@ -16,7 +17,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #1E3A8A; /* צבע כחול חזק */
+  background-color: #152b26; 
   color: white;
   height: 60px;
   border-radius: 30px;
@@ -25,7 +26,7 @@ body {
   position: fixed;
   top: 10px;
   left: 10px;
-  right: 80px;
+  right: 10px; /* מתאים לרוחב המסך */
   z-index: 1000;
 }
 
@@ -52,12 +53,12 @@ body {
 
 .side-navbar {
   width: 250px;
-  background-color: #1E3A8A; /* צבע כחול חזק */
+  background-color: #6c827d; 
   color: white;
   height: calc(100vh - 80px);
   position: fixed;
-  top: 95px; /* מרווח מהחלק העליון */
-  left: 20px;
+  top: 80px; /* מתאים לגובה ההדר */
+  left: 10px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -82,14 +83,13 @@ body {
 .main-content {
   margin-left: 290px;
   padding: 20px;
-  margin-top: 80px; /* מתאים למרווח העליון */
-  margin-right: 100px;
+  margin-top: 80px; /* מתאים לגובה ההדר */
+  margin-right: 10px; /* מרווח מהקצה הימני */
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: calc(100vh - 100px); /* מתאים לגובה המסך */
   overflow-y: auto; /* מאפשר גלילה במידת הצורך */
-  width: 1500px;
 }
 
 .container {
@@ -117,7 +117,7 @@ body {
 }
 
 .modal-content {
-  background-color: #1E3A8A; 
+  background-color: #2f8270; 
   color: white;
   padding: 20px;
   border-radius: 10px;
@@ -184,14 +184,14 @@ body {
   padding: 10px 20px;
   border: none;
   background-color: white;
-  color: #1E3A8A;
+  color: #2f8270;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .form-actions button:hover {
-  background-color: #164a87;
+  background-color: #2f8270;
   color: white;
 }
 
@@ -204,6 +204,7 @@ body {
   background-color: #f10f0f;
   color: rgb(54, 46, 46);
 }
+
 .login-button {
   background: none;
   border: none;
@@ -238,7 +239,7 @@ body {
 }
 
 .user-table th {
-  background-color: #1E3A8A;
+  background-color: #2f8270;
   color: white;
   font-weight: bold;
 }
@@ -262,8 +263,9 @@ body {
   background-color: white;
   cursor: pointer;
 }
+
 .logout-button {
-  background-color: #1E3A8A;
+  background-color: #b5b5b5;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -273,7 +275,7 @@ body {
 }
 
 .logout-button:hover {
-  background-color: #163E73;
+  background-color: #2f8270;
 }
 
 /* צבעים לתפקידים שונים בטבלת המשתמשים */
@@ -287,4 +289,35 @@ body {
 
 .role-teacher {
   background-color: #fff3cd;
+}
+
+/* סגנונות נוספים לדף הבית */
+.date-time {
+  background: #6c827d;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 40px; /* רווח בין התאריך והשעה לבין המשימות */
+}
+
+.section {
+  margin-bottom: 40px; /* רווח של 2-3 שורות בין הפסקאות */
+}
+
+.section h2 {
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: #f9f9f9;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
