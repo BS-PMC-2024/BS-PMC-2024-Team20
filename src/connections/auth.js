@@ -5,6 +5,10 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 const auth = getAuth();
 const db = getFirestore();
 
+/*It is a function that communicates with the database, basically what it does is to 
+save the user according to 2 records, one is a deductive record and the other is created by
+ the measure, and there is no such thing, the second list stores the roles of the users 
+When a user logs in, he deductively assumes the role of a student*/
 export const registerUser = async (email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -12,7 +16,7 @@ export const registerUser = async (email, password) => {
     const userRef = doc(db, "users", user.uid);
     await setDoc(userRef, {
       email: user.email,
-      role: "student" // ברירת מחדל לסטודנט
+      role: "student"
     });
     return user;
   } catch (error) {
