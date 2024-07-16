@@ -11,6 +11,7 @@ import TeacherDashboard from './pages/teacher/TeacherDashboard';
 import ManageUsers from './pages/admin/ManageUsers';
 import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
+import ForgotPassword from './services/ForgotPassword.js';
 
 const App = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -73,6 +74,7 @@ const App = () => {
     <Layout user={user} role={role} onOpenLogin={() => setIsLoginOpen(true)} onLogout={handleLogout}>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} /> 
         {role === 'student' && <Route path="/student/dashboard" element={<StudentDashboard />} />}
         {role === 'admin' && (
           <>
