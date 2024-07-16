@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import '../../styles/common.css';
 
 const StudentDashboard = () => {
   const [firstName, setFirstName] = useState('');
