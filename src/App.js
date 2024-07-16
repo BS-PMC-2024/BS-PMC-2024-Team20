@@ -1,6 +1,6 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import Layout from './components/common/Layout';
 import LoginModal from './components/common/LoginModal';
 import RegisterModal from './components/common/RegisterModal';
@@ -49,17 +49,23 @@ const App = () => {
     };
     checkUser();
   }, [navigate, user]);
-/* 
-BSPMS2420-17
-This function takes care of the user's logout
- and basically after logging out it takes him to the home page
-*/ 
+
   const handleLogout = () => {
     auth.signOut().then(() => {
       setUser(null);
       setRole(null);
       localStorage.removeItem('userRole');
-      navigate('/');
+      Swal.fire({
+        title: 'התנתקת בהצלחה',
+        text: 'לחץ על אישור להמשך',
+        icon: 'success',
+        confirmButtonText: 'אישור',
+        customClass: {
+          confirmButton: 'swal-button'
+        }
+      }).then(() => {
+        navigate('/');
+      });
     });
   };
 
