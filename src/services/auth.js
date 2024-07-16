@@ -5,11 +5,12 @@ import { app } from '../connections/firebaseConfig';
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export const registerUser = async (email, password) => {
+export const registerUser = async (email, password, firstName, lastName, role) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
-  
-  await setDoc(doc(db, 'userRoles', user.uid), { role: 'student',email: email });
+  //console.log(firstName, lastName, role);
+
+  await setDoc(doc(db, 'userRoles', user.uid), { role: role,email: email ,firstName :firstName,lastName:lastName});
   
   return user;
 };

@@ -107,3 +107,10 @@ const AppWithRouter = () => (
 );
 
 export default AppWithRouter;
+
+
+/*import sweetalert2
+
+npm install sweetalert2
+
+*/
