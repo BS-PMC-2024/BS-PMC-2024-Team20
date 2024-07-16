@@ -1,9 +1,91 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import '../../styles/common.css';
 
 const TeacherDashboard = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+  useEffect(() => {
+    // Fetch user data from local storage
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.firstName && user.lastName) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+    }
+
+    // Update the date and time every second
+    const timer = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatDateTime = (date) => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  // דוגמה לנתונים
+  const upcomingClasses = [
+    { subject: 'Mathematics', time: '10:00 AM' },
+    { subject: 'Physics', time: '12:00 PM' },
+  ];
+
+  const tasks = [
+    { title: 'Grade Assignment 1', dueDate: '2024-07-18' },
+    { title: 'Prepare for Physics Lecture', dueDate: '2024-07-20' },
+  ];
+
+  const messages = [
+    { from: 'Student A', content: 'Could you please clarify the homework?' },
+    { from: 'Admin', content: 'Staff meeting on Friday at 3 PM.' },
+  ];
+
+  const announcements = [
+    { content: 'Assignment 1 has been graded.' },
+    { content: 'Next week’s lecture will cover Chapter 5.' },
+  ];
+
   return (
-    <div>
-      <h1>Teacher Dashboard</h1>
+    <div className="main-content">
+      <h1>Hello {firstName} {lastName}!</h1>
+      <div className="date-time">
+        <p>{formatDateTime(currentDateTime)}</p>
+      </div>
+      <div className="section">
+        <h2>Upcoming Classes</h2>
+        <ul>
+          {upcomingClasses.map((classItem, index) => (
+            <li key={index}>{classItem.subject} - {classItem.time}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="section">
+        <h2>Tasks to Complete</h2>
+        <ul>
+          {tasks.map((task, index) => (
+            <li key={index}>{task.title} - Due: {task.dueDate}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="section">
+        <h2>Recent Messages</h2>
+        <ul>
+          {messages.map((message, index) => (
+            <li key={index}><strong>{message.from}:</strong> {message.content}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="section">
+        <h2>Announcements</h2>
+        <ul>
+          {announcements.map((announcement, index) => (
+            <li key={index}>{announcement.content}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
