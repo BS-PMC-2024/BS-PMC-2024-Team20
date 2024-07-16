@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import '../../styles/common.css';
+import React from 'react';
 
 const StudentDashboard = () => {
   const [firstName, setFirstName] = useState('');
@@ -86,3 +85,4 @@ const StudentDashboard = () => {
 };
 
 export default StudentDashboard;
+

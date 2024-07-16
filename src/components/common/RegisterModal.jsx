@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { registerUser } from '../../services/auth';
-import '../../styles/common.css'; // כולל את קובץ ה-CSS המאוחד
+import '../../styles/common.css'; // Includes the unified CSS file
 
 const RegisterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
@@ -8,6 +8,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [role, setRole] = useState('student'); // Default to student
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,11 +17,11 @@ const RegisterModal = ({ isOpen, onClose }) => {
       return;
     }
     try {
-      const user = await registerUser(email, password, firstName, lastName);
+      const user = await registerUser(email, password, firstName, lastName, role);
       console.log('User registered:', user);
       // Save user info to localStorage
-      localStorage.setItem('user', JSON.stringify({ firstName, lastName, email }));
-      onClose(); // סגירת החלון לאחר רישום
+      localStorage.setItem('user', JSON.stringify({ firstName, lastName, email, role }));
+      onClose(); // Close the modal after registration
     } catch (err) {
       console.error('Failed to register user:', err);
     }
@@ -83,6 +84,18 @@ const RegisterModal = ({ isOpen, onClose }) => {
               required
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="role">Role:</label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              required
+            >
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+            </select>
+          </div>
           <div className="form-actions">
             <button type="submit">Register</button>
             <button type="button" onClick={onClose}>Cancel</button>
@@ -93,4 +106,4 @@ const RegisterModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default RegisterModal;
+export default RegisterModal;

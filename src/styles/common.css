@@ -84,12 +84,13 @@ body {
   margin-left: 290px;
   padding: 20px;
   margin-top: 80px; /* מתאים לגובה ההדר */
-  margin-right: 10px; /* מרווח מהקצה הימני */
+  margin-right: 1px; /* מרווח מהקצה הימני */
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: calc(100vh - 100px); /* מתאים לגובה המסך */
   overflow-y: auto; /* מאפשר גלילה במידת הצורך */
+  
 }
 
 .container {
@@ -301,6 +302,14 @@ body {
   margin-bottom: 40px; /* רווח בין התאריך והשעה לבין המשימות */
 }
 
+.form-group select { /* תיקון גודל של dropdown ברישום*/
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
 .section {
   margin-bottom: 40px; /* רווח של 2-3 שורות בין הפסקאות */
 }
@@ -319,5 +328,115 @@ li {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* -------------------------------------- */
+/* חלק עבור כפתור התנתקות*/
+/* -------------------------------------- */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.logout-logo {
+  width: 100px;
+  margin: 20px 0;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #1E3A8A;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #164a87;
+}
+
+/* הוספת סגנון מותאם אישית לכפתור של SweetAlert2 */
+.swal-button {
+  background-color: #1E3A8A !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 10px 20px !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+.swal-button:hover {
+  background-color: #164a87 !important;
+}
+
+/* -------------------------------------- */
+/* חלק עבור דף הבית */
+/* -------------------------------------- */
+
+/* סגנונות לדף הבית */
+.homepage-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff; /* צבע רקע לבן */
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+h1 {
+  color: #1E3A8A; /* צבע כותרת כחול */
+  margin-bottom: 20px;
+}
+
+.homepage-intro, .homepage-mission, .homepage-goal {
+  font-size: 18px;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.homepage-features {
+  margin-top: 20px;
+}
+
+.homepage-features h2 {
+  color: #1E3A8A; /* צבע כותרת כחול */
+  margin-bottom: 10px;
+}
+
+.homepage-features ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.homepage-features li {
+  background-color: #e7e7e7;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
