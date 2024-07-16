@@ -1,6 +1,7 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
 import { app } from '../connections/firebaseConfig'; 
+import { auth } from './firebase';
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -8,14 +9,9 @@ const db = getFirestore(app);
 export const registerUser = async (email, password, firstName, lastName, role) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
-<<<<<<< HEAD
-  
-  await setDoc(doc(db, 'userRoles', user.uid), { role: 'student', email: email });
-=======
   //console.log(firstName, lastName, role);
 
   await setDoc(doc(db, 'userRoles', user.uid), { role: role,email: email ,firstName :firstName,lastName:lastName});
->>>>>>> c200567c8f9d7dbbcc4cc7baf204a368e9288c1a
   
   return user;
 };
@@ -49,6 +45,7 @@ export const getAllUsers = async () => {
   return users;
 };
 
+
 export const updateUserRole = async (uid, newRole) => {
   await updateDoc(doc(db, 'userRoles', uid), { role: newRole });
 };
@@ -72,7 +69,6 @@ export const getRole = async () => {
   return userRoleData.role;
 };
 
-/* BSPMS2420-5 This function allows the user to reset the password if he forgot it */
 export const resetPassword = async (email) => {
-  await sendPasswordResetEmail(auth, email);
-};
+    await sendPasswordResetEmail(auth, email);
+  };
