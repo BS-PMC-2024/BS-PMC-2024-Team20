@@ -8,8 +8,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [role, setRole] = useState('student'); // Default to student
-
+  const [role, setRole] = useState('student'); 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -17,11 +16,9 @@ const RegisterModal = ({ isOpen, onClose }) => {
       return;
     }
     try {
+            // Save user info to firebase db
       const user = await registerUser(email, password, firstName, lastName, role);
-      console.log('User registered:', user);
-      // Save user info to localStorage
-      localStorage.setItem('user', JSON.stringify({ firstName, lastName, email, role }));
-      onClose(); // Close the modal after registration
+      onClose(); 
     } catch (err) {
       console.error('Failed to register user:', err);
     }
