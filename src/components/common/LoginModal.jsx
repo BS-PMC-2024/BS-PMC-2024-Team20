@@ -55,6 +55,8 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
             <button type="button" onClick={onClose}>Cancel</button>
           </div>
           <p>Don't have an account? <span className="switch-link" onClick={onSwitchToRegister}>Register here</span></p>
+
+          <p>Forgot Password? <span className="switch-link" onClick={handleForgotPassword}>Restore Password</span></p>
         </form>
       </div>
     </div>
