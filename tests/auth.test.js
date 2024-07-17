@@ -1,4 +1,4 @@
-const { initializeTestEnvironment } = require('@firebase/rules-unit-testing');
+const { initializeTestEnvironment, assertFails, assertSucceeds } = require('@firebase/rules-unit-testing');
 const fs = require('fs');
 const path = require('path');
 const { getAuth, signInWithEmailAndPassword, deleteUser, createUserWithEmailAndPassword, connectAuthEmulator } = require('firebase/auth');
