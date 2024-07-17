@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../styles/common.css'; 
 import { loginUser } from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
+import {ForgotPassword} from './ForgotPassword.js';
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
@@ -21,6 +22,10 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
     } catch (error) {
       console.error('Failed to log in:', error);
     }
+  };
+
+  const handleForgotPassword = () => {
+    ForgotPassword();
   };
 
   if (!isOpen) return null;
@@ -55,7 +60,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
             <button type="button" onClick={onClose}>Cancel</button>
           </div>
           <p>Don't have an account? <span className="switch-link" onClick={onSwitchToRegister}>Register here</span></p>
-          <p>Forgot Password? <span className="switch-link" onClick={() => { onClose(); navigate('/forgot-password'); }}>Restore Password</span></p>
+          <p>Forgot Password? <span className="switch-link" onClick={handleForgotPassword}>Restore Password</span></p>
         </form>
       </div>
     </div>
