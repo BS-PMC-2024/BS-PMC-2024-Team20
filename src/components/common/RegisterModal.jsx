@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { registerUser } from '../../services/auth';
-import '../../styles/common.css'; // כולל את קובץ ה-CSS המאוחד
+import '../../styles/common.css'; // Includes the unified CSS file
 
 const RegisterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
