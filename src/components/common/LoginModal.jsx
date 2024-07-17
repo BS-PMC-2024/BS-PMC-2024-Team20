@@ -21,6 +21,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
       else if (role === 'teacher') navigate('/teacher/dashboard');
     } catch (error) {
       console.error('Failed to log in:', error);
+      //  setError('Failed to log in: ' + error.message);
     }
   };
 
