@@ -1,0 +1,456 @@
+/* Reset basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  overflow-x: hidden; /* מונע גלילה אופקית */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #152b26; 
+  color: white;
+  height: 60px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px; /* מתאים לרוחב המסך */
+  z-index: 1000;
+}
+
+.header .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.header .nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.header .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.header .nav-links a:hover {
+  transform: scale(1.1);
+}
+
+.side-navbar {
+  width: 250px;
+  background-color: #6c827d; 
+  color: white;
+  height: calc(100vh - 80px);
+  position: fixed;
+  top: 80px; /* מתאים לגובה ההדר */
+  left: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.side-navbar .nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.side-navbar .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.side-navbar .nav-links a:hover {
+  font-size: 20px; /* קישור יגדל כשהעכבר נמצא מעליו */
+}
+
+.main-content {
+  margin-left: 290px;
+  padding: 20px;
+  margin-top: 80px; /* מתאים לגובה ההדר */
+  margin-right: 1px; /* מרווח מהקצה הימני */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 100px); /* מתאים לגובה המסך */
+  overflow-y: auto; /* מאפשר גלילה במידת הצורך */
+  
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content-wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #2f8270; 
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 80%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.switch-link {
+  color: #ffcc00; /* צבע להדגשת הקישור */
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.switch-link:hover {
+  color: #ff9900;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  background-color: white;
+  color: #2f8270;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.form-actions button:hover {
+  background-color: #2f8270;
+  color: white;
+}
+
+.form-actions button[type="button"] {
+  background-color: #ccc;
+  color: #1E3A8A;
+}
+
+.form-actions button[type="button"]:hover {
+  background-color: #f10f0f;
+  color: rgb(54, 46, 46);
+}
+
+.login-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: transform 0.3s ease;
+}
+
+.login-button:hover {
+  transform: scale(1.1);
+}
+
+/* סגנונות לטבלת המשתמשים ולכפתורים */
+.manage-users {
+  padding: 20px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th, .user-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #2f8270;
+  color: white;
+  font-weight: bold;
+}
+
+.user-table tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.user-table tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.user-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.user-table td select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+.delete-button {
+  background-color: #ff4d4d; 
+  color: white; 
+  border: none;
+  padding: 10px 20px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+  transition: background-color 0.3s ease; 
+}
+
+.delete-button:hover {
+  background-color: #cc0000; 
+}
+
+
+.logout-button {
+  background-color: #b5b5b5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #2f8270;
+}
+
+/* צבעים לתפקידים שונים בטבלת המשתמשים */
+.role-student {
+  background-color: #d1e7dd;
+}
+
+.role-admin {
+  background-color: #f8d7da;
+}
+
+.role-teacher {
+  background-color: #fff3cd;
+}
+
+/* סגנונות נוספים לדף הבית */
+.date-time {
+  background: #6c827d;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 40px; /* רווח בין התאריך והשעה לבין המשימות */
+}
+
+.form-group select { /* תיקון גודל של dropdown ברישום*/
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.section {
+  margin-bottom: 40px; /* רווח של 2-3 שורות בין הפסקאות */
+}
+
+.section h2 {
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: #f9f9f9;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------------------------- */
+/* חלק עבור כפתור התנתקות*/
+/* -------------------------------------- */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.logout-logo {
+  width: 100px;
+  margin: 20px 0;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #1E3A8A;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #164a87;
+}
+
+/* הוספת סגנון מותאם אישית לכפתור של SweetAlert2 */
+.swal-button {
+  background-color: #1E3A8A !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 10px 20px !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+.swal-button:hover {
+  background-color: #164a87 !important;
+}
+
+/* -------------------------------------- */
+/* חלק עבור דף הבית */
+/* -------------------------------------- */
+
+/* סגנונות לדף הבית */
+.homepage-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff; /* צבע רקע לבן */
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+h1 {
+  color: #1E3A8A; /* צבע כותרת כחול */
+  margin-bottom: 20px;
+}
+
+.homepage-intro, .homepage-mission, .homepage-goal {
+  font-size: 18px;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.homepage-features {
+  margin-top: 20px;
+}
+
+.homepage-features h2 {
+  color: #1E3A8A; /* צבע כותרת כחול */
+  margin-bottom: 10px;
+}
+
+.homepage-features ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.homepage-features li {
+  background-color: #e7e7e7;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-size: 16px;
+}
+

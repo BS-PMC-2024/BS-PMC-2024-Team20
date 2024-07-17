@@ -1,0 +1,48 @@
+turn the server on to listen on port 3001 : commend : node src/services/server.js
+
+
+npm install buffer
+
+npm install stream-browserify
+
+
+npm install process
+
+//פוליפילים לכמה מודולים חסרים
+npm install stream-browserify path-browserify crypto-browserify stream-http https-browserify os-browserify querystring-es3 browserify-zlib assert buffer process
+
+
+npm install crypto-browserify stream-browserify url path-browserify stream-http https-browserify browserify-zlib os-browserify assert buffer process
+
+npm install browserify-fs
+
+npm install axios
+
+הדלקת שרת 
+לעבור לפני לקובץ  ai-aid\src\services
+node index.js
+
+
+
+/*=================================================================== */
+/*
+ ** This command checks what is available on port 8080 : **
+
+   netstat -ano | findstr :8080
+ */
+/*=================================================================== */
+
+
+/*
+**This command kills the process on the above port : **
+
+   taskkill /PID 1234 /F
+ */
+
+/*=================================================================== */
+
+/*
+ **This command runs the tests**
+  
+  firebase emulators:exec "npm test"
+ */
