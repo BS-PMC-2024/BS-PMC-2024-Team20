@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers, updateUserRole } from '../../services/auth';
 import '../../styles/common.css';
-
+//BSPMS2420-19
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
 
