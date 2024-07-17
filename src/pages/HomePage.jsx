@@ -1,6 +1,10 @@
 import React from 'react';
 import '../styles/common.css';
+<<<<<<< HEAD
 /*Creating a main home page BSPMS2420-9*/  
+=======
+
+>>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
 const HomePage = () => {
   return (
     <div className="homepage-container">

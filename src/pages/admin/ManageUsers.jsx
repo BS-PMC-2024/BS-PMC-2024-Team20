@@ -34,6 +34,7 @@ const ManageUsers = () => {
     }
   };
 
+
   return (
     <div className="manage-users">
       <h2>Manage Users</h2>
@@ -43,6 +44,7 @@ const ManageUsers = () => {
             <th>Email</th>
             <th>Role</th>
             <th>Change Role</th>
+
             <th>Actions</th>
           </tr>
         </thead>
@@ -65,6 +67,7 @@ const ManageUsers = () => {
               <td>
               <button className="delete-button" onClick={() => handleDeleteUser(user.id)}>Delete</button>
               </td>
+
             </tr>
           ))}
         </tbody>
