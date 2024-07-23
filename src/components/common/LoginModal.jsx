@@ -2,27 +2,14 @@ import React, { useState } from 'react';
 import '../../styles/common.css'; 
 import { loginUser } from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-//Creating a login window BSPMS2420-11
-const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-=======
-import {ForgotPassword} from './ForgotPassword.js';
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    setError('');
-=======
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
     try {
       const { user, role } = await loginUser(email, password);
       onLoginSuccess(user, role);
@@ -33,21 +20,9 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
       else if (role === 'teacher') navigate('/teacher/dashboard');
     } catch (error) {
       console.error('Failed to log in:', error);
-<<<<<<< HEAD
-      setError('Failed to log in: ' + error.message);
     }
   };
 
-=======
-      //  setError('Failed to log in: ' + error.message);
-    }
-  };
-
-  const handleForgotPassword = () => {
-    ForgotPassword();
-  };
-
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
   if (!isOpen) return null;
 
   return (
@@ -75,20 +50,13 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
               required
             />
           </div>
-<<<<<<< HEAD
-          {error && <div className="error-message">{error}</div>}
-=======
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
           <div className="form-actions">
             <button type="submit">Login</button>
             <button type="button" onClick={onClose}>Cancel</button>
           </div>
           <p>Don't have an account? <span className="switch-link" onClick={onSwitchToRegister}>Register here</span></p>
-<<<<<<< HEAD
-          <p>Forgot Password? <span className="switch-link" onClick={() => { onClose(); navigate('/forgot-password'); }}>Restore Password</span></p>
-=======
+
           <p>Forgot Password? <span className="switch-link" onClick={handleForgotPassword}>Restore Password</span></p>
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
         </form>
       </div>
     </div>
@@ -96,7 +64,3 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
 };
 
 export default LoginModal;
-<<<<<<< HEAD
-=======
-
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24

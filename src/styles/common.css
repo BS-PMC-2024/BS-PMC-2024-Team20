@@ -84,20 +84,12 @@ body {
   margin-left: 290px;
   padding: 20px;
   margin-top: 80px; /* מתאים לגובה ההדר */
-<<<<<<< HEAD
-  margin-right: 1px; /* מרווח מהקצה הימני */
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: calc(100vh - 100px); /* מתאים לגובה המסך */
-=======
   margin-right: 0; /* מרווח מהקצה הימני */
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: calc(100vh - 100px); /* מתאים לגובה המסך */
   width: calc(100% - 320px);
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
   overflow-y: auto; /* מאפשר גלילה במידת הצורך */
   
 }
@@ -138,11 +130,7 @@ body {
 }
 
 .switch-link {
-<<<<<<< HEAD
-  color: #ffcc00; /* צבע להדגשת הקישור */
-=======
   color: #6098f3; /* צבע להדגשת הקישור */
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
   cursor: pointer;
   text-decoration: underline;
   margin-top: 10px;
@@ -150,11 +138,7 @@ body {
 }
 
 .switch-link:hover {
-<<<<<<< HEAD
-  color: #ff9900;
-=======
   color: #3419ff;
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
 }
 
 @keyframes fadeIn {
@@ -219,13 +203,8 @@ body {
 }
 
 .form-actions button[type="button"]:hover {
-<<<<<<< HEAD
-  background-color: #f10f0f;
-  color: rgb(54, 46, 46);
-=======
   background-color: #787878;
   color: #1E3A8A;
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
 }
 
 .login-button {
@@ -286,23 +265,6 @@ body {
   background-color: white;
   cursor: pointer;
 }
-<<<<<<< HEAD
-.delete-button {
-  background-color: #ff4d4d; 
-  color: white; 
-  border: none;
-  padding: 10px 20px; 
-  cursor: pointer; 
-  border-radius: 5px; 
-  transition: background-color 0.3s ease; 
-}
-
-.delete-button:hover {
-  background-color: #cc0000; 
-}
-
-=======
->>>>>>> 9d49a5e338295bbf171f1a7ded71b99da1ad2d24
 
 .logout-button {
   background-color: #b5b5b5;
@@ -478,4 +440,3 @@ h1 {
   border-radius: 5px;
   font-size: 16px;
 }
-

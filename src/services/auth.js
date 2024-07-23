@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
 import { app } from '../connections/firebaseConfig'; 
 
 
+=======
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
+import { app } from '../connections/firebaseConfig'; 
+
+>>>>>>> cc4bb9e60a8cfc31f8f7087c14683befb702c807
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -68,7 +75,10 @@ export const getRole = async () => {
   
   return userRoleData.role;
 };
+<<<<<<< HEAD
 
 export const resetPassword = async (email) => {
     await sendPasswordResetEmail(auth, email);
   };
+=======
+>>>>>>> cc4bb9e60a8cfc31f8f7087c14683befb702c807
