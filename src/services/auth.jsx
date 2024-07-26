@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail  } from 'firebase/auth';
-import { getFirestore, doc,setDoc, getDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
+import { getFirestore, doc,setDoc, getDoc, collection, getDocs,addDoc, updateDoc,serverTimestamp  } from 'firebase/firestore';
 import { app } from '../connections/firebaseConfig'; 
 
 
@@ -11,9 +11,9 @@ export const registerUser = async (email, password, firstName, lastName, role) =
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
   //console.log(firstName, lastName, role);
-
+  //when user is created the CountHistory function will be called to update the chart in the admin dashboard.
   await setDoc(doc(db, 'userRoles', user.uid), { role: role,email: email ,firstName :firstName,lastName:lastName});
-  
+  await updateUserCountHistory();
   return user;
 };
 
@@ -74,3 +74,28 @@ export const getRole = async () => {
 export const resetPassword = async (email) => {
     await sendPasswordResetEmail(auth, email);
   };
+// admin data for static display 
+  export const getUserCount = async () => {
+    const usersSnapshot = await getDocs(collection(db, 'userRoles'));
+    return usersSnapshot.size;
+  };
+
+  //to get the users history by creating a new document in firebase called : userCountHistory
+export const getUserCountHistory = async () => {
+  const db = getFirestore(app);
+  const snapshot = await getDocs(collection(db, 'userCountHistory'));
+  const userCountHistory = [];
+  snapshot.forEach(doc => {
+    userCountHistory.push({ time: doc.data().time.toDate(), count: doc.data().count });
+  });
+  return userCountHistory;
+};
+export const updateUserCountHistory = async () => {
+  const userCount = await getUserCount();
+  await addDoc(collection(db, 'userCountHistory'), {
+    count: userCount,
+    time: serverTimestamp()
+  });
+};
+
+
