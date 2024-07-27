@@ -57,7 +57,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="main-content"> 
+    <div className="main-content"> {/* using the main content layout ,git commit -m "BSPMS2420-55 create a blog page"*/}
       <div className="blog-container">
         <h2>Blog</h2>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
