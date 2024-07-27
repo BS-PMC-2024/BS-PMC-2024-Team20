@@ -67,7 +67,7 @@ const Blog = () => {
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Write your message here (max 100 characters)..."
           ></textarea>
-          <button type="submit">Post Message</button>
+          <button type="submit">Post Message</button>{/* git commit -m "BSPMS2420-56 blog post btn"*/}
         </form>
         {role === 'admin' && (
           <button className="blog-clear-button" onClick={handleClearBlog}>Clear Blog</button>
