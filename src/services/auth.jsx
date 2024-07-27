@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail  } from 'firebase/auth';
-import { getFirestore, doc,setDoc, getDoc, collection, getDocs,addDoc, updateDoc,serverTimestamp  } from 'firebase/firestore';
+import { getFirestore, doc,setDoc, getDoc, collection, getDocs,addDoc, updateDoc,serverTimestamp, deleteDoc, query  } from 'firebase/firestore';
 import { app } from '../connections/firebaseConfig'; 
 
 
@@ -97,5 +97,39 @@ export const updateUserCountHistory = async () => {
     time: serverTimestamp()
   });
 };
+/*blog function that creating a new collection in the firebase DB */ 
+export const fetchBlogMessages = async () => {
+  const messagesSnapshot = await getDocs(collection(db, 'blogMessages'));
+  const messagesList = [];
+  messagesSnapshot.forEach(doc => {
+    messagesList.push({ id: doc.id, ...doc.data() });
+  });
+  return messagesList;
+};
 
+export const addBlogMessage = async (content, sender) => {
+  if (content.length > 100) {
+    throw new Error('Message cannot exceed 100 characters.');
+  }
+  if (content.length <=0) {
+    throw new Error('Message cannot be less then 0 characters.');
+  }
+  await addDoc(collection(db, 'blogMessages'), {
+    content: content,
+    sender: sender,
+    timestamp: serverTimestamp()
+  });
+};
+
+
+
+export const clearBlog = async () => {
+  const q = query(collection(db, 'blogMessages'));
+  const messagesSnapshot = await getDocs(q);
+  const deletePromises = [];
+  messagesSnapshot.forEach(doc => {
+    deletePromises.push(deleteDoc(doc.ref));
+  });
+  await Promise.all(deletePromises);
+};
 

@@ -8,6 +8,7 @@ const TopNavbar = ({ user, onOpenLogin, onLogout }) => {
     <header className="header">
       <div className="logo">AI-AID</div>
       <nav className="nav-links">
+      {user && <Link to="/blog">Blog</Link>}
         {user ? (
           <button className="logout-button" onClick={onLogout}>Logout</button>
         ) : (

@@ -16,7 +16,7 @@ const auth = admin.auth();
 const deleteUserById = async (uid) => {
   try {
     await db.collection('userRoles').doc(uid).delete();
-    
+    await db.collection('blogMessages').doc(uid).delete();
     await auth.deleteUser(uid);
     
     console.log(`Successfully deleted user with UID: ${uid}`);

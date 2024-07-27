@@ -11,6 +11,8 @@ import TeacherDashboard from './pages/teacher/TeacherDashboard';
 import ManageUsers from './pages/admin/ManageUsers';
 import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
+import Blog from './components/common/blog';
+
 
 const App = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -81,6 +83,7 @@ const App = () => {
           </>
         )}
         {role === 'teacher' && <Route path="/teacher/dashboard" element={<TeacherDashboard />} />}
+        <Route path="/blog" element={<Blog />} />
       </Routes>
       <LoginModal
         isOpen={isLoginOpen}
