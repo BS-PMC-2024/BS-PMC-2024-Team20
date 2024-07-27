@@ -1,24 +1,15 @@
-// import React from 'react';
-
-// const StudentDashboard = () => {
-//   return (
-//     <div>
-//       <h1>Student Dashboard</h1>
-//     </div>
-//   );
-// };
-
-// export default StudentDashboard;
-
-
 import React, { useEffect, useState } from 'react';
 import '../../styles/common.css';
+import { getAuth } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { app } from '../../connections/firebaseConfig';
+
 
 const StudentDashboard = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
-
+/*
   useEffect(() => {
     // Fetch user data from local storage
     const user = JSON.parse(localStorage.getItem('user'));
@@ -34,6 +25,34 @@ const StudentDashboard = () => {
 
     return () => clearInterval(timer);
   }, []);
+*/
+useEffect(() => {
+  const fetchUserData = async () => {
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const user = auth.currentUser;
+    
+    if (user) {
+      const userDoc = await getDoc(doc(db, 'userRoles', user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.firstName && userData.lastName) {
+          setFirstName(userData.firstName);
+          setLastName(userData.lastName);
+        }
+      }
+    }
+  };
+
+  fetchUserData();
+
+  // Update the date and time every second
+  const timer = setInterval(() => {
+    setCurrentDateTime(new Date());
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, []);
 
   const formatDateTime = (date) => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };

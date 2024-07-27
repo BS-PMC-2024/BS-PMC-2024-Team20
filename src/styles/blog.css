@@ -1,0 +1,115 @@
+/* ai-aid/src/styles/blog.css */
+
+/* סגנונות לרכיב הבלוג */
+.blog-container {
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .blog-container h2 {
+    color: #1E3A8A; /* צבע כותרת כחול */
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 500;
+  }
+  
+  .error-message {
+    color: #D32F2F;
+    background-color: #FFCDD2;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1em;
+  }
+  
+  .blog-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1em;
+    margin-bottom: 15px;
+    font-family: 'Roboto', sans-serif;
+    transition: border-color 0.3s ease;
+    line-height: 1.5;
+    resize: none;
+  }
+  
+  .blog-form textarea:focus {
+    border-color: #1E3A8A;
+    outline: none;
+  }
+  
+  .blog-form button {
+    padding: 10px 30px;
+    border: none;
+    background-color: #1E3A8A;
+    color: white;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .blog-form button:hover {
+    background-color: #164a87;
+  }
+  
+  .blog-messages {
+    margin-top: 30px;
+  }
+  
+  .blog-message {
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .blog-message p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-size: 1em;
+    color: #333;
+  }
+  
+  .blog-message small {
+    display: block;
+    color: #666;
+    font-size: 0.875em;
+    text-align: right;
+  }
+  
+  .blog-clear-button {
+    padding: 10px 30px;
+    border: none;
+    background-color: #E57373;
+    color: white;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: block;
+    margin: 20px auto;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .blog-clear-button:hover {
+    background-color: #D32F2F;
+  }
+  

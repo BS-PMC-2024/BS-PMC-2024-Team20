@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/common.css'; // כולל את קובץ ה-CSS המאוחד
-
+//BSPMS2420-17
 const LogoutModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 

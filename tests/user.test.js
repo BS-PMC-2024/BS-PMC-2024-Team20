@@ -147,3 +147,4 @@ test('registerUser should fail with an invalid password', async () => {
   firebase emulators:exec "npm test"
 */
   
+
