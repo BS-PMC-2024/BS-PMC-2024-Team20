@@ -23,6 +23,7 @@ const SideNavbar = ({ role }) => {
             <Link to="/teacher/dashboard">Teacher Dashboard</Link>
           </>
         )}
+
       </nav>
     </div>
   );

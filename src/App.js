@@ -13,6 +13,9 @@ import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
 import Blog from './components/common/blog';
 
+import TermsOfService from './pages/TermsOfService';
+import Footer from './components/common/Footer';
+
 
 const App = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -75,6 +78,8 @@ const App = () => {
     <Layout user={user} role={role} onOpenLogin={() => setIsLoginOpen(true)} onLogout={handleLogout}>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} /> 
+
         {role === 'student' && <Route path="/student/dashboard" element={<StudentDashboard />} />}
         {role === 'admin' && (
           <>
@@ -84,6 +89,8 @@ const App = () => {
         )}
         {role === 'teacher' && <Route path="/teacher/dashboard" element={<TeacherDashboard />} />}
         <Route path="/blog" element={<Blog />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} /> 
+        
       </Routes>
       <LoginModal
         isOpen={isLoginOpen}
@@ -99,6 +106,8 @@ const App = () => {
         }}
       />
       <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
+
+      <Footer > </Footer>
     </Layout>
   );
 };

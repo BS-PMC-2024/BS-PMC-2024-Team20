@@ -1,5 +1,7 @@
+// src/pages/teacher/TeacherDashboard.jsx
 import React, { useEffect, useState } from 'react';
 import '../../styles/common.css';
+import '../../styles/teacher.css';
 
 const TeacherDashboard = () => {
   const [firstName, setFirstName] = useState('');
@@ -49,13 +51,13 @@ const TeacherDashboard = () => {
   ];
 
   return (
-    <div className="main-content">
-      <h1>Hello {firstName} {lastName}!</h1>
+    <div className="teacher-dashboard">
+      <h1>שלום {firstName} {lastName}!</h1>
       <div className="date-time">
         <p>{formatDateTime(currentDateTime)}</p>
       </div>
       <div className="section">
-        <h2>Upcoming Classes</h2>
+        <h2>שיעורים קרובים</h2>
         <ul>
           {upcomingClasses.map((classItem, index) => (
             <li key={index}>{classItem.subject} - {classItem.time}</li>
@@ -63,15 +65,15 @@ const TeacherDashboard = () => {
         </ul>
       </div>
       <div className="section">
-        <h2>Tasks to Complete</h2>
+        <h2>משימות להשלמה</h2>
         <ul>
           {tasks.map((task, index) => (
-            <li key={index}>{task.title} - Due: {task.dueDate}</li>
+            <li key={index}>{task.title} - תאריך יעד: {task.dueDate}</li>
           ))}
         </ul>
       </div>
       <div className="section">
-        <h2>Recent Messages</h2>
+        <h2>הודעות אחרונות</h2>
         <ul>
           {messages.map((message, index) => (
             <li key={index}><strong>{message.from}:</strong> {message.content}</li>
@@ -79,7 +81,7 @@ const TeacherDashboard = () => {
         </ul>
       </div>
       <div className="section">
-        <h2>Announcements</h2>
+        <h2>הודעות ועדכונים</h2>
         <ul>
           {announcements.map((announcement, index) => (
             <li key={index}>{announcement.content}</li>
