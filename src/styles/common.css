@@ -12,6 +12,14 @@ body {
   overflow-x: hidden; /* מונע גלילה אופקית */
 }
 
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -62,6 +70,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
 }
 
 .side-navbar .nav-links {
@@ -105,8 +114,8 @@ body {
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: calc(100vh - 100px); /* מתאים לגובה המסך */
-  width: calc(100% - 320px);
+  height: calc(100vh - 130px); /* מתאים לגובה המסך */
+  width: calc(100% - 290px);
   overflow-y: auto; /* מאפשר גלילה במידת הצורך */
 }
 

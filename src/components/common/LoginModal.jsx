@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import '../../styles/common.css'; 
 import { loginUser } from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,8 +24,22 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
     } catch (error) {
       console.error('Failed to log in:', error);
       //  setError('Failed to log in: ' + error.message);
+      if (error.message.includes('not registered')) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Not Registered',
+          text: 'User is not registered. Please register first.',
+          confirmButtonText: 'OK'
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: 'Failed to log in: ' + 'please register first!',
+          confirmButtonText: 'OK'
+        });
     }
-  };
+  };}
 
   const handleForgotPassword = () => {
     ForgotPassword();
@@ -35,7 +51,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input

@@ -7,9 +7,14 @@ import { app } from '../../connections/firebaseConfig';
 import UserCountHistory from './UserCountHistory';
 import { getUserCountHistory } from '../../services/auth';
 import Modal from 'react-modal';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 
 // הגדרת האלמנט הראשי של האפליקציה עבור react-modal
 Modal.setAppElement('#root');
+
+const MySwal = withReactContent(Swal);
 
 const AdminHome = () => {
   const [firstName, setFirstName] = useState('');
@@ -48,6 +53,18 @@ const AdminHome = () => {
   const formatDateTime = (date) => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
     return date.toLocaleDateString('en-US', options);
+  };
+  const openUserCountHistory = () => {
+    MySwal.fire({
+      title: 'User Count History',
+      html: <UserCountHistory />,
+      showCloseButton: true,
+      showConfirmButton: false,
+      width: '80%',
+      customClass: {
+        popup: 'custom-swal-popup'
+      }
+    });
   };
 
   return (
