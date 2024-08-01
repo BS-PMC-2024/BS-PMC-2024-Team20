@@ -93,7 +93,7 @@ const StudentTeacherCom = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           ></textarea>
-          <button onClick={handleSendMessage}>Send Message</button> {/*git commit -m "BSPMS2420-35 create btn for com (StudentToTeacherCom)" */}
+          <button onClick={handleSendMessage}>Send Message</button> {/*//git commit -m "BSPMS2420-35 create btn for com (StudentToTeacherCom)" */}
           {status && <p className="status-message">{status}</p>} {/*git commit -m "BSPMS2420-36 create page for com (StudentToTeacherCom)" */}
         </div>
       )}
