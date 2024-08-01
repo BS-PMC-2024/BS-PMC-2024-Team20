@@ -13,6 +13,9 @@ import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
 import Blog from './components/common/blog';
 
+import StudentTeacherTOCom from './components/Communication/StudentToTeacherCom';
+import TeacherToStudentCom from './components/Communication/TeacherToStudentCom';
+
 import TermsOfService from './pages/TermsOfService';
 import Footer from './components/common/Footer';
 
@@ -89,6 +92,9 @@ const App = () => {
         )}
         {role === 'teacher' && <Route path="/teacher/dashboard" element={<TeacherDashboard />} />}
         <Route path="/blog" element={<Blog />} />
+        <Route path="/StudentTeacherCom" element={<StudentTeacherTOCom />} />
+        <Route path="/TeacherToStudentCom" element={<TeacherToStudentCom />} />
+        
         <Route path="/terms-of-service" element={<TermsOfService />} /> 
         
       </Routes>

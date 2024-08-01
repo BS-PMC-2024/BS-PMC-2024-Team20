@@ -23,7 +23,7 @@ const PrivateRoute = ({ children, allowedRoles, ...rest }) => {
   }, [user]);
 
   if (loading) {
-    return <div>Loading...</div>; // או כל קומפוננטה לטעינה אחרת
+    return <div>Loading...</div>; 
   }
 
   if (!user || !allowedRoles.includes(role)) {

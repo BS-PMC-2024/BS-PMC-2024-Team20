@@ -1,5 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail  } from 'firebase/auth';
 import { getFirestore, doc,setDoc, getDoc, collection, getDocs,addDoc, updateDoc,serverTimestamp, deleteDoc, query  } from 'firebase/firestore';
+
 import { app } from '../connections/firebaseConfig'; 
 
 
@@ -71,6 +72,25 @@ export const getRole = async () => {
   return userRoleData.role;
 };
 
+export const getUserName = async (uid) => {
+  const userDocRef = doc(db, 'userRoles', uid); // Confirm 'userRoles' is the correct collection
+  try {
+    const userDoc = await getDoc(userDocRef);
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      console.log(userData.firstName);
+      return userData.firstName;  // Check if 'firstName' is the correct field name
+    } else {
+      throw new Error('No such user!');
+    }
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    throw error; // Ensure that this error is something your calling function expects and handles
+  }
+};
+
+
+
 export const resetPassword = async (email) => {
     await sendPasswordResetEmail(auth, email);
   };
@@ -133,3 +153,58 @@ export const clearBlog = async () => {
   await Promise.all(deletePromises);
 };
 
+
+
+export const sendMessage = async (fromRole, fromUser, toRole, toUser, message) => {
+  if (message.length <= 0) {
+    throw new Error('Message cannot be empty.');
+  }
+
+  const user = auth.currentUser;
+  if (!user) {
+    throw new Error('You must be logged in to send a message.');
+  }
+
+  try {
+    await addDoc(collection(db, 'userMessages'), {
+      fromRole,
+      fromUser,
+      toRole,
+      toUser,
+      message,
+      sender: user.email,
+      timestamp: serverTimestamp()
+    });
+  } catch (error) {
+    console.error('Error sending message:', error);
+    throw new Error('Failed to send message.');
+  }
+};
+
+export const receiveMessages = async (userEmail, role) => {
+  const messagesSnapshot = await getDocs(collection(db, 'userMessages'));
+  const conversation = [];
+
+  messagesSnapshot.forEach(doc => {
+    const data = doc.data();
+    if ((data.fromUser === userEmail && data.fromRole === role) || 
+        (data.toUser === userEmail && data.toRole !== role)) {
+      conversation.push({ id: doc.id, ...data });
+    }
+  });
+
+  return conversation;
+};
+
+export const fetchConversation = async (userEmail, role) => {
+  const messagesSnapshot = await getDocs(collection(db, 'userMessages'));
+  const conversation = [];
+  messagesSnapshot.forEach(doc => {
+    const data = doc.data();
+    if ((data.fromUser === userEmail && data.fromRole === role) || 
+        (data.toUser === userEmail && data.toRole !== role)) {
+      conversation.push({ id: doc.id, ...data });
+    }
+  });
+  return conversation;
+};

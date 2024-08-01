@@ -47,7 +47,13 @@ body, html {
   display: flex;
   gap: 20px;
 }
-
+.username {
+  margin-right: 15px;
+  font-size: 1.1em;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
 .header .nav-links a {
   color: white;
   text-decoration: none;
@@ -100,6 +106,7 @@ body, html {
   cursor: pointer;
   border-radius: 5px;
   text-decoration: none; /* הסרת הקו התחתי מהקישור */
+
 }
 
 .nav-button:hover {
@@ -155,7 +162,7 @@ body, html {
 }
 
 .switch-link {
-  color: #6098f3; /* צבע להדגשת הקישור */
+  color: #6098f3;
   cursor: pointer;
   text-decoration: underline;
   margin-top: 10px;
@@ -194,7 +201,7 @@ body, html {
 }
 
 .form-group input,
-.form-group select { /* סגנון מאוחד לתיבת טקסט ו-dropdown */
+.form-group select { 
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;

@@ -23,3 +23,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 server/ai-aid-firebase-adminsdk-c313i-1bdc26f499.json
+
+src/components/Communication/TeacherToStudentCom.jsx

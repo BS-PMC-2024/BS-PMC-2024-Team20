@@ -76,7 +76,7 @@ useEffect(() => {
   ];
 
   return (
-    <div className="main-content">
+    <>
       <h1>Hello {firstName} {lastName}!</h1>
       <div className="date-time">
         <p>{formatDateTime(currentDateTime)}</p>
@@ -113,7 +113,7 @@ useEffect(() => {
           <li>Use mnemonic devices to remember information.</li>
         </ul>
       </div>
-    </div>
+    </>
   );
 };
 
