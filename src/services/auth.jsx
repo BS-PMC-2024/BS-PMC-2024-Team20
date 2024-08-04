@@ -209,6 +209,7 @@ export const fetchConversation = async (userEmail, role) => {
   return conversation;
 };
 //The function displays user messages from other users
+//fix bug with AdminConversation  - BSPMS2420-67
 export const AdminConversation = async (userEmail, role) => {
   const messagesSnapshot = await getDocs(collection(db, 'userMessages'));
   const conversation = [];
