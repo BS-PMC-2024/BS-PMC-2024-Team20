@@ -74,7 +74,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await testEnv.clearFirestore();
 });
-
+//git commit -m "BSPMS2420-49-test admin message"
 // This test checks whether the admin received the message sent to him from another user (not an admin)
 test('AdminConversation should fetch messages for admin', async () => {
   // Create a message for the admin
