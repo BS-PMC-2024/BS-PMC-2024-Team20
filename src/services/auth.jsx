@@ -208,3 +208,15 @@ export const fetchConversation = async (userEmail, role) => {
   });
   return conversation;
 };
+//The function displays user messages from other users
+export const AdminConversation = async (userEmail, role) => {
+  const messagesSnapshot = await getDocs(collection(db, 'userMessages'));
+  const conversation = [];
+  messagesSnapshot.forEach(doc => {
+    const data = doc.data();
+    if ( (data.toUser === userEmail && data.toRole === role)) {
+      conversation.push({ id: doc.id, ...data });
+    }
+  });
+  return conversation;
+};
