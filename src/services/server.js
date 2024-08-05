@@ -1,11 +1,13 @@
 const express = require('express');
 const { deleteUserById } = require('./firebaseAdmin');
+const apiRouter = require('./api'); // נתיב לקובץ api.js שיצרנו
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
 
+// הגדרת ראוטר למחיקת משתמש
 app.delete('/api/deleteUser/:uid', async (req, res) => {
   const { uid } = req.params;
   try {
@@ -15,6 +17,9 @@ app.delete('/api/deleteUser/:uid', async (req, res) => {
     res.status(500).send({ error: 'Failed to delete user', details: error.message });
   }
 });
+
+// הוספת הראוטר החדש לתקשורת עם AI
+app.use('/api', apiRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
