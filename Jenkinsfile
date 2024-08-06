@@ -39,10 +39,9 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'firebase-admin-sdk', variable: 'SERVICE_ACCOUNT_JSON')]) {
                     script {
-                        // Run the container with root privileges
-                        docker.image("shimonbaruch/ai-aid").inside("-u root") {
-                            // Copy the secret file into the container
-                            sh 'cp $SERVICE_ACCOUNT_JSON /app/server/ai-aid-firebase-adminsdk-c313i-1bdc26f499.json'
+                        docker.image("shimonbaruch/ai-aid").inside {
+                            // Copy the secret file into the container with elevated privileges
+                            sh 'sudo cp $SERVICE_ACCOUNT_JSON /app/server/ai-aid-firebase-adminsdk-c313i-1bdc26f499.json'
                             // Start the server
                             sh 'node /app/server/index.js &'
                             // Wait for the server to start
@@ -55,7 +54,7 @@ pipeline {
         stage('Run Admin Integration Tests') {
             steps {
                 script {
-                    docker.image("shimonbaruch/ai-aid").inside("-u root") {
+                    docker.image("shimonbaruch/ai-aid").inside {
                         // Run the Admin integration tests
                         sh 'firebase emulators:exec "npx jest tests/admin/AdminIntegration.test.js"'
                     }
@@ -65,7 +64,7 @@ pipeline {
         stage('Run Teacher Integration Tests') {
             steps {
                 script {
-                    docker.image("shimonbaruch/ai-aid").inside("-u root") {
+                    docker.image("shimonbaruch/ai-aid").inside {
                         // Run the Teacher integration tests
                         sh 'firebase emulators:exec "npx jest tests/Teacher/TeacherIntegration.test.js"'
                     }
