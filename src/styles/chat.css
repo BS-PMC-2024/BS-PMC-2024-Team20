@@ -2,7 +2,7 @@
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 60vh; /* גובה סטנדרטי */
+    height: 100vh; /* גובה סטנדרטי */
     width: 50vw; /* רוחב סטנדרטי */
     max-width: 600px;
     margin: 2rem auto; /* למרכז את הצ'אט */
@@ -42,13 +42,13 @@
   }
   
   .user-message {
-    background-color: #d1e7dd;
+    background-color: #a0ccb8;
     align-self: flex-end;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .bot-message {
-    background-color: #f8d7da;
+    background-color: #7ea1ac;
     align-self: flex-start;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }

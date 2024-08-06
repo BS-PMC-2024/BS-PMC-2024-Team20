@@ -1,13 +1,11 @@
-// src/components/Chat.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../styles/chat.css'
+import '../../styles/chat.css';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
-  // שליחת הודעה לשרת ולקבלת תגובה מהבוט
   const sendMessage = async () => {
     if (input.trim() === '') return;
 
@@ -15,9 +13,17 @@ const Chat = () => {
     setMessages([...messages, userMessage]);
 
     try {
-      const response = await axios.post('/api/chat', { message: input });
-      const botMessage = { role: 'bot', content: response.data.choices[0].message.content };
-      setMessages([...messages, userMessage, botMessage]);
+      const response = await axios.post('http://localhost:3002/api/chat', { message: input });
+      console.log('Full response:', response);
+      console.log('Response data:', response.data);
+
+      // בדוק שהתגובה מכילה את המידע הצפוי
+      if (response.data && response.data.choices && response.data.choices.length > 0) {
+        const botMessage = { role: 'bot', content: response.data.choices[0].message.content };
+        setMessages([...messages, userMessage, botMessage]);
+      } else {
+        console.error('Unexpected response structure:', response.data);
+      }
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -26,7 +32,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="chat-container">
+    <>
       <div className="chat-header">
         צ'אט עם AI
       </div>
@@ -61,7 +67,8 @@ const Chat = () => {
           <li>אל תשתף מידע אישי או רגיש.</li>
         </ul>
       </div>
-    </div>
+    </>
+    
   );
 };
 
