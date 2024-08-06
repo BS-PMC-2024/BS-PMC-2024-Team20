@@ -1,5 +1,5 @@
-# שלב 1: שימוש בתמונה בסיסית של Node.js
-FROM node:14
+# שלב 1: שימוש בתמונה בסיסית של Node.js עם גרסה 18
+FROM node:18
 
 # שלב 2: יצירת ספרייה לעבוד בה
 WORKDIR /app
@@ -14,19 +14,13 @@ COPY . .
 # שלב 5: בניית האפליקציה
 RUN npm run build
 
-# התקנת Firebase CLI
+# שלב 6: התקנת Firebase CLI
 RUN npm install -g firebase-tools
 
-# שינוי הרשאות התיקייה server
-RUN mkdir -p /app/server && chown -R node:node /app/server
-
-# שלב 6: הפעלת האפליקציה בשרת סטטי
+# שלב 7: התקנת שרת סטטי serve
 RUN npm install -g serve
 
-# הפעלת היישום כמשתמש לא-רוט
-USER node
-
-# הצהרת הפקודה לשם הרצת היישום
+# שלב 8: הפעלת האפליקציה בשרת סטטי
 CMD ["serve", "-s", "build"]
 
 # חשיפת הפורט 3000
