@@ -14,6 +14,9 @@ COPY . .
 # שלב 5: בניית האפליקציה
 RUN npm run build
 
+# התקנת Firebase CLI
+RUN npm install -g firebase-tools
+
 # שלב 6: הפעלת האפליקציה בשרת סטטי
 RUN npm install -g serve
 CMD ["serve", "-s", "build"]
