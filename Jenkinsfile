@@ -32,6 +32,8 @@ pipeline {
             steps {
                 script {
                     docker.image("shimonbaruch/ai-aid").inside("-u node") {
+                        // Cache Firebase Emulators
+                        sh 'mkdir -p ~/.cache/firebase/emulators'
                         // Run the Admin integration tests
                         sh 'firebase emulators:exec "npx jest tests/admin/AdminIntegration.test.js"'
                     }
@@ -61,4 +63,3 @@ pipeline {
         }
     }
 }
-//test jenkins ai-aid\Jenkinsfile
