@@ -1,26 +1,29 @@
 # שלב 1: שימוש בתמונה בסיסית של Node.js עם גרסה 18
 FROM node:18
 
-# שלב 2: יצירת ספרייה לעבוד בה
+# שלב 2: התקנת Java
+RUN apt-get update && apt-get install -y openjdk-11-jre-headless
+
+# שלב 3: יצירת ספרייה לעבוד בה
 WORKDIR /app
 
-# שלב 3: העתקת קובץ package.json והתקנת התלויות
+# שלב 4: העתקת קובץ package.json והתקנת התלויות
 COPY package*.json ./
 RUN npm install
 
-# שלב 4: העתקת שאר קבצי האפליקציה
+# שלב 5: העתקת שאר קבצי האפליקציה
 COPY . .
 
-# שלב 5: בניית האפליקציה
+# שלב 6: בניית האפליקציה
 RUN npm run build
 
-# שלב 6: התקנת Firebase CLI
+# שלב 7: התקנת Firebase CLI
 RUN npm install -g firebase-tools
 
-# שלב 7: התקנת שרת סטטי serve
+# שלב 8: התקנת שרת סטטי serve
 RUN npm install -g serve
 
-# שלב 8: הפעלת האפליקציה בשרת סטטי
+# שלב 9: הפעלת האפליקציה בשרת סטטי
 CMD ["serve", "-s", "build"]
 
 # חשיפת הפורט 3000
