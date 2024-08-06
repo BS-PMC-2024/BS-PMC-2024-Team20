@@ -2,7 +2,7 @@
 FROM node:18
 
 # שלב 2: התקנת Java
-RUN apt-get update && apt-get install -y openjdk-11-jre-headless
+RUN apt-get update && apt-get install -y openjdk-17-jre-headless
 
 # שלב 3: יצירת ספרייה לעבוד בה
 WORKDIR /app
