@@ -1,0 +1,96 @@
+/* Buttons */
+.button {
+    display: inline-block;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    background-color: #007bff; /* כחול מודרני */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+  
+  .button:hover {
+    background-color: #0056b3; /* כהה יותר */
+    transform: translateY(-2px); /* אפקט ריחוף */
+  }
+  
+  /* Forms */
+  .form-group {
+    margin-bottom: 1.5rem; /* מרווח גדול יותר */
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold; /* הדגשת הכותרת */
+    color: #333; /* צבע כהה יותר */
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* רקע בהיר */
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #007bff; /* צבע מסגרת בעת מיקוד */
+  }
+  
+  /* Cards */
+  .card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* צללה עדינה יותר */
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease; /* אנימציה בעת ריחוף */
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* צללה בעת ריחוף */
+  }
+  
+  /* Modal */
+  .custom-modal-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 600px; /* הרחבת גודל */
+    margin: auto;
+    position: relative; /* לתמיכה במיקום יחסי */
+  }
+  
+  .custom-modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* רקע כהה */
+  }
+  
+  .custom-modal-content h2 {
+    margin-bottom: 1.5rem; /* מרווח מתחת לכותרת */
+    color: #007bff; /* צבע כותרת */
+  }
+  
+  .custom-modal-content button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+  
+  .custom-modal-content button:hover {
+    color: #007bff; /* שינוי צבע כפתור סגירה בעת ריחוף */
+  }
+  .button-spacing {
+    margin-bottom: 1rem; /* מרווח תחתון */
+  }
+  

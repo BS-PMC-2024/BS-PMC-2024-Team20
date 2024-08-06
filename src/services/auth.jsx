@@ -241,7 +241,7 @@ export const getAllStudents = async () => {
 };
 
 //git add src\services\auth.jsx
-//git commit -m" BSPMS2420-70 - deleteUserByIdWhenTesting function for deleting users after test "
+//git commit -m" BSPMS2420-71  - deleteUserByIdWhenTesting function for deleting users after test "
 
 export const deleteUserByIdWhenTesting = async (userId) => {
   const userDocUsers = doc(db, 'users', userId);
