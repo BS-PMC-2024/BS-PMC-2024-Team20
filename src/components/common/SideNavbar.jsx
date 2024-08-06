@@ -17,12 +17,16 @@ const SideNavbar = ({ role }) => {
           <>
             <Link to="/admin/dashboard">Admin Dashboard</Link>
             <Link to="/admin/manage-users">Manage Users</Link>
+         
           </>
         )}
         {role === 'teacher' && (
           <>
-            <Link to="/teacher/dashboard">Teacher Dashboard</Link>
-            <Link to="/TeacherToStudentCom">Talk to Student</Link>
+    <Link to="/teacher/dashboard">Teacher Dashboard</Link>
+    <Link to="/TeacherToStudentCom">Talk to Student</Link>
+    <Link to="/teacher/manage-students">Manage Students</Link>
+            
+            
           </>
         )}
         <Link to="/chat">chat with AI</Link>
@@ -32,3 +36,6 @@ const SideNavbar = ({ role }) => {
 };
 
 export default SideNavbar;
+
+
+// for - admin - <Link to="/admin/record-working-hours">record-working-hours</Link>
