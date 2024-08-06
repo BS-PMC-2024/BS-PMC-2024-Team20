@@ -18,6 +18,9 @@ export const registerUser = async (email, password, firstName, lastName, role) =
   return user;
 };
 
+export const isTermsAccepted = (termsAccepted) => {
+  return termsAccepted;
+};
 /* BSPMS2420-4 This function verifies whether the user exists in the database,
  if so it will transfer him to the page specific to him, 
  otherwise it will show him an error message */
@@ -220,4 +223,49 @@ export const AdminConversation = async (userEmail, role) => {
     }
   });
   return conversation;
+};
+
+
+export { db };
+
+export const getAllStudents = async () => {
+  const usersSnapshot = await getDocs(collection(db, 'userRoles'));
+  const students = [];
+  usersSnapshot.forEach(doc => {
+    const userData = doc.data();
+    if (userData.role === 'student') {
+      students.push({ id: doc.id, ...userData });
+    }
+  });
+  return students;
+};
+
+//git add src\services\auth.jsx
+//git commit -m" BSPMS2420-70 - deleteUserByIdWhenTesting function for deleting users after test "
+
+export const deleteUserByIdWhenTesting = async (userId) => {
+  const userDocUsers = doc(db, 'users', userId);
+  const userDocUserRoles = doc(db, 'userRoles', userId);
+  
+  await deleteDoc(userDocUsers);
+  await deleteDoc(userDocUserRoles);
+};
+
+////sprint 2:
+
+export const getAdminWorkingHours = async () => {
+  const snapshot = await getDocs(collection(db, 'adminWorkingHours'));
+  const workingHours = [];
+  snapshot.forEach(doc => {
+    workingHours.push({ date: doc.data().date.toDate().toLocaleDateString(), hours: doc.data().hours });
+  });
+  return workingHours;
+};
+
+export const recordWorkingHours = async (date, hours) => {
+  await addDoc(collection(db, 'adminWorkingHours'), {
+    date: new Date(date),
+    hours,
+    time: serverTimestamp()
+  });
 };
