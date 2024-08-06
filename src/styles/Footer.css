@@ -1,0 +1,104 @@
+/* footer */ 
+
+.footer {
+    background-color: #152b26;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex; /* שימוש ב-Flexbox */
+    justify-content: center; /* ממרכז את הכפתורים */
+    gap: 20px; /* מרווח בין הכפתורים */
+    align-items: center;
+  }
+  
+  .footer-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 15px;
+  }
+  
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-bottom {
+    margin-top: 10px;
+  }
+  
+  
+  /* terms of service */ 
+  
+  .terms-of-service {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .terms-of-service.rtl {
+    direction: rtl; /* קובע כיוון טקסט מימין לשמאל */
+    text-align: right; /* מיישר טקסט לימין */
+  }
+  
+  .terms-of-service h1 {
+    color: #1E3A8A;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 36px;
+  }
+  
+  .terms-of-service h2 {
+    color: #1E3A8A;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  
+  .terms-of-service p {
+    font-size: 18px;
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+  
+  .terms-of-service ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .terms-of-service ul li {
+    background: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    line-height: 1.4;
+    position: relative;
+    padding-right: 40px; /* משאירים מקום לאייקון בצד ימין */
+  }
+  
+  .terms-of-service ul li::before {
+    content: '✔'; /* אייקון אישור */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1E3A8A;
+  }
+  

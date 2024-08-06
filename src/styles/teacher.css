@@ -1,0 +1,68 @@
+.teacher-dashboard {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: rtl; /* מימין לשמאל */
+    text-align: right; /* מימין לשמאל */
+  }
+  
+  .teacher-dashboard h1 {
+    color: #1E3A8A;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 36px;
+  }
+  
+  .teacher-dashboard h2 {
+    color: #1E3A8A;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  
+  .teacher-dashboard p {
+    font-size: 18px;
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+  
+  .teacher-dashboard ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .teacher-dashboard ul li {
+    background: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    line-height: 1.4;
+    position: relative;
+    padding-right: 40px; /* משאירים מקום לאייקון בצד ימין */
+  }
+  
+  .teacher-dashboard ul li::before {
+    content: '✔'; /* אייקון אישור */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1E3A8A;
+  }
+  
+  .date-time {
+    background: #6c827d;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 40px; /* רווח בין התאריך והשעה לבין המשימות */
+  }
+  

@@ -12,6 +12,14 @@ body {
   overflow-x: hidden; /* מונע גלילה אופקית */
 }
 
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -39,7 +47,13 @@ body {
   display: flex;
   gap: 20px;
 }
-
+.username {
+  margin-right: 15px;
+  font-size: 1.1em;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
 .header .nav-links a {
   color: white;
   text-decoration: none;
@@ -62,6 +76,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
 }
 
 .side-navbar .nav-links {
@@ -80,6 +95,24 @@ body {
   font-size: 20px; /* קישור יגדל כשהעכבר נמצא מעליו */
 }
 
+.nav-button {
+  display: block; /* לוודא שהקישור מוצג כבלוק */
+  padding: 10px;
+  margin: 5px 0; /* מרווח בין הכפתורים */
+  background-color: #007bff;
+  color: white;
+  text-align: center; /* לוודא שהטקסט במרכז */
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none; /* הסרת הקו התחתי מהקישור */
+
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+}
+
 .main-content {
   margin-left: 290px;
   padding: 20px;
@@ -88,10 +121,9 @@ body {
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: calc(100vh - 100px); /* מתאים לגובה המסך */
-  width: calc(100% - 320px);
+  height: calc(100vh - 130px); /* מתאים לגובה המסך */
+  width: calc(100% - 290px);
   overflow-y: auto; /* מאפשר גלילה במידת הצורך */
-  
 }
 
 .container {
@@ -130,7 +162,7 @@ body {
 }
 
 .switch-link {
-  color: #6098f3; /* צבע להדגשת הקישור */
+  color: #6098f3;
   cursor: pointer;
   text-decoration: underline;
   margin-top: 10px;
@@ -168,7 +200,8 @@ body {
   font-weight: bold;
 }
 
-.form-group input {
+.form-group input,
+.form-group select { 
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -221,7 +254,6 @@ body {
   transform: scale(1.1);
 }
 
-/* סגנונות לטבלת המשתמשים ולכפתורים */
 .manage-users {
   padding: 20px;
 }
@@ -235,7 +267,8 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.user-table th, .user-table td {
+.user-table th,
+.user-table td {
   padding: 12px 15px;
   text-align: left;
 }
@@ -266,7 +299,8 @@ body {
   cursor: pointer;
 }
 
-.logout-button {
+.logout-button,
+.delete-button {
   background-color: #b5b5b5;
   color: white;
   border: none;
@@ -276,11 +310,18 @@ body {
   transition: background-color 0.3s ease;
 }
 
+.delete-button {
+  color: rgb(17, 16, 16);
+}
+
 .logout-button:hover {
   background-color: #2f8270;
 }
 
-/* צבעים לתפקידים שונים בטבלת המשתמשים */
+.delete-button:hover {
+  background-color: red;
+}
+
 .role-student {
   background-color: #d1e7dd;
 }
@@ -293,7 +334,6 @@ body {
   background-color: #fff3cd;
 }
 
-/* סגנונות נוספים לדף הבית */
 .date-time {
   background: #6c827d;
   color: white;
@@ -301,14 +341,6 @@ body {
   border-radius: 5px;
   text-align: center;
   margin-bottom: 40px; /* רווח בין התאריך והשעה לבין המשימות */
-}
-
-.form-group select { /* תיקון גודל של dropdown ברישום*/
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
 }
 
 .section {
@@ -331,10 +363,6 @@ li {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-/* -------------------------------------- */
-/* חלק עבור כפתור התנתקות*/
-/* -------------------------------------- */
 
 .modal-overlay {
   position: fixed;
@@ -377,7 +405,6 @@ li {
   background-color: #164a87;
 }
 
-/* הוספת סגנון מותאם אישית לכפתור של SweetAlert2 */
 .swal-button {
   background-color: #1E3A8A !important;
   color: white !important;
@@ -392,28 +419,27 @@ li {
 .swal-button:hover {
   background-color: #164a87 !important;
 }
-
-/* -------------------------------------- */
-/* חלק עבור דף הבית */
-/* -------------------------------------- */
-
-/* סגנונות לדף הבית */
 .homepage-container {
-  text-align: center;
-  padding: 20px;
-  background-color: #ffffff; /* צבע רקע לבן */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #ffffff;
   color: #333;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
 }
 
-h1 {
-  color: #1E3A8A; /* צבע כותרת כחול */
+.homepage-container h1 {
+  color: #1E3A8A;
   margin-bottom: 20px;
+  font-size: 36px;
 }
 
-.homepage-intro, .homepage-mission, .homepage-goal {
+.homepage-intro,
+.homepage-mission,
+.homepage-goal {
   font-size: 18px;
   margin: 10px 0;
   line-height: 1.6;
@@ -424,8 +450,9 @@ h1 {
 }
 
 .homepage-features h2 {
-  color: #1E3A8A; /* צבע כותרת כחול */
+  color: #1E3A8A;
   margin-bottom: 10px;
+  font-size: 24px;
 }
 
 .homepage-features ul {
@@ -434,10 +461,49 @@ h1 {
 }
 
 .homepage-features li {
-  background-color: #e7e7e7;
+  background-color: #f9f9f9;
   padding: 10px;
   margin: 5px 0;
   border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 16px;
+  line-height: 1.4;
 }
 
+.homepage-features li::before {
+  content: '✔'; /* אייקון אישור */
+  color: #1E3A8A;
+  margin-right: 10px;
+}
+
+@media (max-width: 600px) {
+  .homepage-container {
+    padding: 20px;
+  }
+
+  .homepage-container h1 {
+    font-size: 28px;
+  }
+
+  .homepage-intro,
+  .homepage-mission,
+  .homepage-goal {
+    font-size: 16px;
+  }
+
+  .homepage-features h2 {
+    font-size: 20px;
+  }
+
+  .homepage-features li {
+    font-size: 14px;
+  }
+}
+
+
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}

@@ -11,7 +11,21 @@ import TeacherDashboard from './pages/teacher/TeacherDashboard';
 import ManageUsers from './pages/admin/ManageUsers';
 import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
-import ForgotPassword from './components/common/ForgotPassword.js';
+import Blog from './components/common/blog';
+//Communication
+import StudentTeacherTOCom from './components/Communication/StudentToTeacherCom';
+import TeacherToStudentCom from './components/Communication/TeacherToStudentCom';
+
+import TermsOfService from './pages/TermsOfService';
+import Footer from './components/common/Footer';
+import ContactAdmin from './components/Communication/ContactAdmin.jsx';
+import SendContactAdmin from './components/Communication/SendContactAdmin.jsx';
+
+import ViewStudent from './pages/teacher/ViewStudent';
+import ManageStudents from './pages/teacher/ManageStudents';
+
+import AdminWorkingHours from './pages/admin/AdminWorkingHours';
+import RecordWorkingHours from './pages/admin/RecordWorkingHours'
 
 const App = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -74,15 +88,36 @@ const App = () => {
     <Layout user={user} role={role} onOpenLogin={() => setIsLoginOpen(true)} onLogout={handleLogout}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* <Route path="/forgot-password" element={<ForgotPassword />} />  */}
+        <Route path="/terms-of-service" element={<TermsOfService />} /> 
+        
+
         {role === 'student' && <Route path="/student/dashboard" element={<StudentDashboard />} />}
+        
         {role === 'admin' && (
           <>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/manage-users" element={<ManageUsers />} />
+            <Route path="/contact-admin" element={<ContactAdmin />} />
+            <Route path="/admin/working-hours" element={<AdminWorkingHours />} />
+            <Route path="/admin/record-working-hours" element={<RecordWorkingHours />} />
+           
           </>
         )}
-        {role === 'teacher' && <Route path="/teacher/dashboard" element={<TeacherDashboard />} />}
+        {role === 'teacher' && (
+        <>
+          <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+            <Route path="/teacher/manage-students" element={<ManageStudents />} />
+          <Route path="/teacher/view-student/:studentId" element={<ViewStudent />} />
+        </>
+        )}
+
+
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/StudentTeacherCom" element={<StudentTeacherTOCom />} />
+        <Route path="/TeacherToStudentCom" element={<TeacherToStudentCom />} />
+        <Route path="/send-contact-admin" element={<SendContactAdmin />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} /> 
+        
       </Routes>
       <LoginModal
         isOpen={isLoginOpen}
@@ -98,6 +133,8 @@ const App = () => {
         }}
       />
       <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
+
+      <Footer > </Footer>
     </Layout>
   );
 };

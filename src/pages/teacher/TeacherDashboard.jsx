@@ -1,18 +1,52 @@
+// src/pages/teacher/TeacherDashboard.jsx
 import React, { useEffect, useState } from 'react';
 import '../../styles/common.css';
+import '../../styles/teacher.css';
+import { getAuth } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { app } from '../../connections/firebaseConfig';
 
 const TeacherDashboard = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
-  useEffect(() => {
-    // Fetch user data from local storage
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && user.firstName && user.lastName) {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-    }
+  // useEffect(() => {
+  //   // Fetch user data from local storage
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   if (user && user.firstName && user.lastName) {
+  //     setFirstName(user.firstName);
+  //     setLastName(user.lastName);
+  //   }
+
+  //   // Update the date and time every second
+  //   const timer = setInterval(() => {
+  //     setCurrentDateTime(new Date());
+  //   }, 1000);
+
+  //   return () => clearInterval(timer);
+  // }, []);
+
+
+useEffect(() => {
+    const fetchUserData = async () => {
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const user = auth.currentUser;
+
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'userRoles', user.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          if (userData.firstName && userData.lastName) {
+            setFirstName(userData.firstName);
+            setLastName(userData.lastName);
+          }
+        }
+      }
+    };
+
+    fetchUserData();
 
     // Update the date and time every second
     const timer = setInterval(() => {
@@ -49,13 +83,13 @@ const TeacherDashboard = () => {
   ];
 
   return (
-    <div className="main-content">
-      <h1>Hello {firstName} {lastName}!</h1>
+    <div className="teacher-dashboard">
+      <h1>שלום {firstName} {lastName}!</h1>
       <div className="date-time">
         <p>{formatDateTime(currentDateTime)}</p>
       </div>
       <div className="section">
-        <h2>Upcoming Classes</h2>
+        <h2>שיעורים קרובים</h2>
         <ul>
           {upcomingClasses.map((classItem, index) => (
             <li key={index}>{classItem.subject} - {classItem.time}</li>
@@ -63,15 +97,15 @@ const TeacherDashboard = () => {
         </ul>
       </div>
       <div className="section">
-        <h2>Tasks to Complete</h2>
+        <h2>משימות להשלמה</h2>
         <ul>
           {tasks.map((task, index) => (
-            <li key={index}>{task.title} - Due: {task.dueDate}</li>
+            <li key={index}>{task.title} - תאריך יעד: {task.dueDate}</li>
           ))}
         </ul>
       </div>
       <div className="section">
-        <h2>Recent Messages</h2>
+        <h2>הודעות אחרונות</h2>
         <ul>
           {messages.map((message, index) => (
             <li key={index}><strong>{message.from}:</strong> {message.content}</li>
@@ -79,7 +113,7 @@ const TeacherDashboard = () => {
         </ul>
       </div>
       <div className="section">
-        <h2>Announcements</h2>
+        <h2>הודעות ועדכונים</h2>
         <ul>
           {announcements.map((announcement, index) => (
             <li key={index}>{announcement.content}</li>
