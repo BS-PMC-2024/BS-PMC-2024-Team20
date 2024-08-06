@@ -36,22 +36,21 @@ pipeline {
             }
         }
         stage('Start Server') {
-            steps {
-                // Use the secret file stored in Jenkins Credentials
-                withCredentials([file(credentialsId: 'firebase-admin-sdk', variable: 'SERVICE_ACCOUNT_JSON')]) {
-                    script {
-                        docker.image("shimonbaruch/ai-aid").inside {
-                            // Copy the secret file into the container
-                            sh 'cp $SERVICE_ACCOUNT_JSON /app/server/ai-aid-firebase-adminsdk-c313i-1bdc26f499.json'
-                            // Start the server
-                            sh 'node /app/server/index.js &'
-                            // Wait for the server to start
-                            sh 'sleep 10'
-                        }
-                    }
+    steps {
+        withCredentials([file(credentialsId: 'firebase-admin-sdk', variable: 'SERVICE_ACCOUNT_JSON')]) {
+            script {
+                docker.image("shimonbaruch/ai-aid").inside {
+                    // Copy the secret file into the container
+                    sh 'cp $SERVICE_ACCOUNT_JSON /app/server/ai-aid-firebase-adminsdk-c313i-1bdc26f499.json'
+                    // Start the server
+                    sh 'node /app/server/index.js &'
+                    // Wait for the server to start
+                    sh 'sleep 10'
                 }
             }
         }
+    }
+}
         stage('Run Admin Integration Tests') {
             steps {
                 script {
