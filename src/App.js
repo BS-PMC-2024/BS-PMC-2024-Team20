@@ -21,6 +21,11 @@ import Footer from './components/common/Footer';
 import ContactAdmin from './components/Communication/ContactAdmin.jsx';
 import SendContactAdmin from './components/Communication/SendContactAdmin.jsx';
 
+import ViewStudent from './pages/teacher/ViewStudent';
+import ManageStudents from './pages/teacher/ManageStudents';
+
+import AdminWorkingHours from './pages/admin/AdminWorkingHours';
+import RecordWorkingHours from './pages/admin/RecordWorkingHours'
 
 const App = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -93,10 +98,18 @@ const App = () => {
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/manage-users" element={<ManageUsers />} />
             <Route path="/contact-admin" element={<ContactAdmin />} />
+            <Route path="/admin/working-hours" element={<AdminWorkingHours />} />
+            <Route path="/admin/record-working-hours" element={<RecordWorkingHours />} />
            
           </>
         )}
-        {role === 'teacher' && <Route path="/teacher/dashboard" element={<TeacherDashboard />} />}
+        {role === 'teacher' && (
+        <>
+          <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+            <Route path="/teacher/manage-students" element={<ManageStudents />} />
+          <Route path="/teacher/view-student/:studentId" element={<ViewStudent />} />
+        </>
+        )}
 
 
         <Route path="/blog" element={<Blog />} />
