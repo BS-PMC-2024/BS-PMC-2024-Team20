@@ -1,3 +1,5 @@
+// src/components/common/SideNavbar.jsx
+import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/common.css';
 
@@ -8,7 +10,7 @@ const SideNavbar = ({ role }) => {
         {role === 'student' && (
           <>
             <Link to="/student/dashboard">Student Dashboard</Link>
-            <Link to="/StudentTeacherCom">talk to Teacher</Link>
+            <Link to="/StudentTeacherCom">Talk to Teacher</Link>
           </>
         )}
         {role === 'admin' && (
@@ -16,7 +18,6 @@ const SideNavbar = ({ role }) => {
             <Link to="/admin/dashboard">Admin Dashboard</Link>
             <Link to="/admin/manage-users">Manage Users</Link>
          
-           
           </>
         )}
         {role === 'teacher' && (
@@ -28,7 +29,7 @@ const SideNavbar = ({ role }) => {
             
           </>
         )}
-
+        <Link to="/chat">chat with AI</Link>
       </nav>
     </div>
   );

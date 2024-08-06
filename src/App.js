@@ -12,7 +12,7 @@ import ManageUsers from './pages/admin/ManageUsers';
 import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
 import Blog from './components/common/blog';
-//Communication
+// Communication
 import StudentTeacherTOCom from './components/Communication/StudentToTeacherCom';
 import TeacherToStudentCom from './components/Communication/TeacherToStudentCom';
 
@@ -20,7 +20,8 @@ import TermsOfService from './pages/TermsOfService';
 import Footer from './components/common/Footer';
 import ContactAdmin from './components/Communication/ContactAdmin.jsx';
 import SendContactAdmin from './components/Communication/SendContactAdmin.jsx';
-
+import Chat from './components/common/Chat'; // ייבוא הקומפוננטה Chat
+import ChatIcon from './components/common/ChatIcon'; // ייבוא הקומפוננטה ChatIcon
 import ViewStudent from './pages/teacher/ViewStudent';
 import ManageStudents from './pages/teacher/ManageStudents';
 
@@ -89,10 +90,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/terms-of-service" element={<TermsOfService />} /> 
-        
-
         {role === 'student' && <Route path="/student/dashboard" element={<StudentDashboard />} />}
-        
         {role === 'admin' && (
           <>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -103,6 +101,7 @@ const App = () => {
            
           </>
         )}
+        {role === 'teacher' && <Route path="/teacher/dashboard" element={<TeacherDashboard />} />}
         {role === 'teacher' && (
         <>
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
@@ -117,7 +116,7 @@ const App = () => {
         <Route path="/TeacherToStudentCom" element={<TeacherToStudentCom />} />
         <Route path="/send-contact-admin" element={<SendContactAdmin />} />
         <Route path="/terms-of-service" element={<TermsOfService />} /> 
-        
+        <Route path="/chat" element={<Chat />} /> {/* הוספת הראוט לקומפוננטת Chat */}
       </Routes>
       <LoginModal
         isOpen={isLoginOpen}
@@ -133,8 +132,8 @@ const App = () => {
         }}
       />
       <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
-
-      <Footer > </Footer>
+      <Footer />
+      <ChatIcon /> {/* הוספת הקומפוננטה של האייקון */}
     </Layout>
   );
 };
@@ -146,10 +145,3 @@ const AppWithRouter = () => (
 );
 
 export default AppWithRouter;
-
-
-/*import sweetalert2
-
-npm install sweetalert2
-
-*/
