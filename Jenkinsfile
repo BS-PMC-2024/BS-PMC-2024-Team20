@@ -12,12 +12,14 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Set Node Version') {
+        stage('Install Node.js') {
             steps {
                 script {
-                    // Set Node.js version
-                    sh 'nvm install ${NODE_VERSION}'
-                    sh 'nvm use ${NODE_VERSION}'
+                    // Install Node.js
+                    sh '''
+                        curl -sL https://deb.nodesource.com/setup_14.x | bash -
+                        apt-get install -y nodejs
+                    '''
                 }
             }
         }
