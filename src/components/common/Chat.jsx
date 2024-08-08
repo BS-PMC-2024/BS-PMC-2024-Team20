@@ -35,7 +35,7 @@ const Chat = () => {
   return (
     <>
       <div className="chat-header">
-        צ'אט עם AI
+       Chat With Ai-aid
       </div>
       <div className="chat-messages">
         {messages.map((msg, index) => (
@@ -49,23 +49,23 @@ const Chat = () => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="הקלד את הודעתך..."
+          placeholder="Type here your message... "
         />
-        <button onClick={sendMessage}>שלח</button>
+        <button onClick={sendMessage}>SEND</button>
       </div>
       <div className="chat-guidelines">
-        <h3>הנחיות לשיחה בצ'אט</h3>
+        <h2>Instructions for an effective conversation with our chat:</h2>
         <ul>
-          <li>השתמש בשפה מכובדת ומנומסת.</li>
-          <li>היה ברור ותמציתי בשאלותיך.</li>
-          <li>דוגמאות לאיך לשאול שאלות:</li>
+          <li>Use respectful and polite language</li>
+          <li>Be clear and concise with your questions</li>
+          <li>Here are examples of starting a conversation with our chat: </li>
           <ul>
-            <li>"האם תוכל לעזור לי בשיעורי הבית?"</li>
-            <li>"מהי בירת צרפת?"</li>
-            <li>"הסבר את תורת היחסות."</li>
+            <li>Hi Chat, I need help with time management</li>
+            <li>Hi Chat, I have a really hard time studying in the mornings</li>
+            <li>Hi Chat, I have a really hard time studying in the mornings</li>
           </ul>
-          <li>נא להימנע משימוש בשפה פוגענית או לא הולמת.</li>
-          <li>אל תשתף מידע אישי או רגיש.</li>
+          <li>Please avoid inappropriate language</li>
+          <li>Do not share sensitive personal information.</li>
         </ul>
       </div>
     </>
