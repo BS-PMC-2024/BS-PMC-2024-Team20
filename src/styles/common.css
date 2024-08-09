@@ -241,17 +241,17 @@ body, html {
 }
 
 .login-button {
-  background: none;
-  border: none;
+  background-color: #b5b5b5;
   color: white;
-  font-size: 18px;
+  border: none;
+  padding: 10px 20px;
   cursor: pointer;
-  text-decoration: underline;
-  transition: transform 0.3s ease;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
-  transform: scale(1.1);
+  background-color: #2f8270;
 }
 
 .manage-users {
