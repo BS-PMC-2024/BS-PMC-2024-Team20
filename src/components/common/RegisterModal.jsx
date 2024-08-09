@@ -166,6 +166,9 @@ import React, { useState } from 'react';
 import { registerUser } from '../../services/auth';
 import '../../styles/common.css'; 
 import '../../styles/survey.css';
+import { Tooltip, TooltipWrapper } from 'react-tooltip'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 const RegisterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
@@ -388,6 +391,14 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setLearningGoals(e.target.value)}
                 rows="2"
               />
+               <TooltipWrapper>
+                <FontAwesomeIcon
+                  icon={faQuestionCircle}
+                  style={{ marginLeft: '8px', color: '#007bff', cursor: 'pointer' }} // Blue color
+                  data-tooltip-id="learningGoalsTooltip"
+                />
+                <Tooltip id="learningGoalsTooltip">For example: studying for a test, routine studies, etc</Tooltip>
+              </TooltipWrapper>
             </div>
             <div className="form-group">
               <label htmlFor="learning-strategies">Preferred learning strategies:</label>
@@ -397,6 +408,14 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setLearningStrategies(e.target.value)}
                 rows="2"
               />
+              <TooltipWrapper>
+                <FontAwesomeIcon
+                  icon={faQuestionCircle}
+                  style={{ marginLeft: '8px', color: '#007bff', cursor: 'pointer' }} // Blue color
+                  data-tooltip-id="learningStrategiesTooltip"
+                />
+                <Tooltip id="learningStrategiesTooltip">For example: timed study, structured agenda, etc</Tooltip>
+              </TooltipWrapper>
             </div>
             <div className="form-group">
               <label htmlFor="emotional-support">emotional support:</label>
@@ -405,7 +424,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 value={emotionalSupport}
                 onChange={(e) => setEmotionalSupport(e.target.value)}
               >
-                <option value="">Select Service</option>
+                <option value="">Select Service:</option>
                 <option value="counseling">Consultation</option>
                 <option value="workshops">Time management workshops</option>
                 <option value="emotional-support">Emotional support</option>
@@ -418,8 +437,9 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 value={studyTime}
                 onChange={(e) => setStudyTime(e.target.value)}
               >
-                <option value="">Choose a time</option>
+                <option value="">Choose a time:</option>
                 <option value="morning">Morning</option>
+                <option value="noon">Noon</option>
                 <option value="afternoon">Afternoon</option>
                 <option value="night">Night</option>
               </select>
