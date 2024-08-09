@@ -15,11 +15,7 @@
     z-index: 1000;
   }
   
-  .chat-header {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
+
   .chat-close {
     cursor: pointer;
     font-size: 20px;
