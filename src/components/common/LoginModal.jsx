@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import '../../styles/common.css'; 
 import { loginUser } from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
-import {ForgotPassword} from './ForgotPassword.js';
+import {ForgotPassword} from './ForgotPassword.jsx';
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
