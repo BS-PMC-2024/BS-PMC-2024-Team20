@@ -475,10 +475,11 @@ li {
   line-height: 1.4;
 }
 
-.homepage-features li::before {
+.homepage-features li::after {
   content: '✔'; /* אייקון אישור */
   color: #1E3A8A;
   margin-right: 10px;
+  padding: 5px;
 }
 
 @media (max-width: 600px) {
