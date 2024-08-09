@@ -38,22 +38,46 @@ body, html {
   z-index: 1000;
 }
 
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+}
+
+.left-section a {
+  font-size: 24px; 
+  text-decoration: none;
+  color: white;
+  margin-top: 5px;
+  transition: transform 0.3s ease, font-size 0.3s ease; 
+}
+.left-section a:hover {
+  transform: scale(1.1); 
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
 .header .logo {
   font-size: 24px;
   font-weight: bold;
+  margin-right: 5px;
 }
 
 .header .nav-links {
   display: flex;
   gap: 10px;
 }
+
 .username {
-  margin-right: 15px;
+  margin-right: 1px;
   font-size: 1.1em;
   color: white;
   font-size: 24px;
 }
-
+/* 
 .header .nav-links a {
   color: white;
   text-decoration: none;
@@ -63,7 +87,7 @@ body, html {
 
 .header .nav-links a:hover {
   transform: scale(1.1);
-}
+} */
 
 .side-navbar {
   width: 250px;
@@ -475,7 +499,7 @@ li {
   line-height: 1.4;
 }
 
-.homepage-features li::after {
+.homepage-features li::before {
   content: '✔'; /* אייקון אישור */
   color: #1E3A8A;
   margin-right: 10px;
@@ -507,9 +531,36 @@ li {
 }
 
 
-
 .error {
   color: red;
   font-weight: bold;
+  margin-top: 10px;
+}
+
+
+/* -------- Cards Student Dashboard ----- */
+
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.card {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  flex-basis: calc(50% - 10px);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.card-content {
   margin-top: 10px;
 }

@@ -4,43 +4,43 @@ import './../styles/common.css';
 
 const TermsOfService = () => {
   return (
-    <div className="terms-of-service rtl">
-      <h1>תנאי שימוש</h1>
+    <div className="terms-of-service">
+      <h1>Terms of Service</h1>
       <section>
-        <h2><i className="fas fa-info-circle"></i> ברוכים הבאים</h2>
-        <p>ברוכים הבאים לדף תנאי השימוש שלנו. כאן תוכלו למצוא את הכללים והתקנות לשימוש באתר שלנו.</p>
+        <h2><i className="fas fa-info-circle"></i> Welcome</h2>
+        <p>Welcome to our Terms of Service page. Here you can find the rules and regulations for using our website.</p>
       </section>
       <section>
-        <h2><i className="fas fa-balance-scale"></i> תנאים כלליים</h2>
+        <h2><i className="fas fa-balance-scale"></i> General Conditions</h2>
         <ul>
-          <li>המשתמש מתחייב להשתמש באתר באחריות.</li>
-          <li>המשתמש מתחייב לא להשתמש לרעה באתר או בשירותיו.</li>
-          <li>כל המידע המסופק על ידי המשתמש חייב להיות מדויק.</li>
-          <li>האתר לא יישא באחריות לכל שימוש לרעה בשירותיו על ידי המשתמש.</li>
-          <li>המשתמש מתחייב לפעול בהתאם לכל החוקים והתקנות החלים.</li>
+          <li>The user agrees to use the website responsibly.</li>
+          <li>The user agrees not to misuse the website or its services.</li>
+          <li>All information provided by the user must be accurate.</li>
+          <li>The website will not be responsible for any misuse of its services by the user.</li>
+          <li>The user agrees to comply with all applicable laws and regulations.</li>
         </ul>
       </section>
       <section>
-        <h2><i className="fas fa-user-shield"></i> מדיניות פרטיות</h2>
+        <h2><i className="fas fa-user-shield"></i> Privacy Policy</h2>
         <ul>
-          <li>המשתמש מתחייב לשמור על סודיות המידע האישי של משתמשים אחרים.</li>
-          <li>האתר שומר לעצמו את הזכות לשנות את תנאי השימוש בכל עת ללא הודעה מוקדמת.</li>
-          <li>המשתמש מתחייב לא לפרסם תוכן פוגע, משמיץ או מפר זכויות יוצרים.</li>
+          <li>The user agrees to keep the personal information of other users confidential.</li>
+          <li>The website reserves the right to change the terms of service at any time without prior notice.</li>
+          <li>The user agrees not to post any offensive, defamatory, or copyright-infringing content.</li>
         </ul>
       </section>
       <section>
-        <h2><i className="fas fa-business-time"></i> שימוש מסחרי</h2>
+        <h2><i className="fas fa-business-time"></i> Commercial Use</h2>
         <ul>
-          <li>המשתמש מתחייב לא להשתמש באתר לצרכים מסחריים ללא אישור מפורש מהנהלת האתר.</li>
-          <li>המשתמש מתחייב לא לנסות לפרוץ לאתר או לבצע פעולות זדוניות.</li>
-          <li>המשתמש מתחייב לא לשתף את פרטי ההתחברות שלו עם אחרים.</li>
+          <li>The user agrees not to use the website for commercial purposes without explicit permission from the site management.</li>
+          <li>The user agrees not to attempt to hack the website or engage in malicious activities.</li>
+          <li>The user agrees not to share their login details with others.</li>
         </ul>
       </section>
       <section>
-        <h2><i className="fas fa-shield-alt"></i> זכויות ואחריות</h2>
+        <h2><i className="fas fa-shield-alt"></i> Rights and Responsibilities</h2>
         <ul>
-          <li>האתר שומר לעצמו את הזכות לחסום גישה למשתמשים המפרים את תנאי השימוש.</li>
-          <li>האתר לא יישא באחריות לנזקים שנגרמו כתוצאה מהשימוש באתר.</li>
+          <li>The website reserves the right to block access to users who violate the terms of service.</li>
+          <li>The website will not be liable for any damages resulting from the use of the website.</li>
         </ul>
       </section>
     </div>

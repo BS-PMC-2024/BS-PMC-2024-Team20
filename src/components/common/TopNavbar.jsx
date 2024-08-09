@@ -21,21 +21,22 @@ const TopNavbar = ({ user, onOpenLogin, onLogout }) => {
 
   return (
     <header className="header">
+      <div className="left-section">
       <div className="logo">AI-AID</div>
-      
-      <nav className="nav-links">
+        {user && <span className="username">Hello {userName}</span>}
         {user && <Link to="/blog">Blog</Link>}
+      </div>
+      <div className="right-section">
         {user ? (
-          <>
-            <span className="username">Hello, {userName} </span>
-            <button className="logout-button" onClick={onLogout}>Logout</button>
-          </>
+          <button className="logout-button" onClick={onLogout}>Logout</button>
         ) : (
           <button className="login-button" onClick={onOpenLogin}>Login</button>
         )}
-      </nav>
-    </header>
-  );
+      </div>
+      </header>
+    );
 };
+
+
 
 export default TopNavbar;

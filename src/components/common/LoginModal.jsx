@@ -78,7 +78,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => 
               type="checkbox"
               id="showPassword"
               checked={showPassword}
-              onChange={(e) => setShowPassword(e.target.checked)} // Handle checkbox change
+              onChange={(e) => setShowPassword(e.target.checked)} 
             />
             <label htmlFor="showPassword">Show Password</label>
           </div>
