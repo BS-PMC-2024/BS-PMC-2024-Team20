@@ -1,12 +1,9 @@
 /*
 import React, { useState } from 'react';
-<<<<<<< HEAD
 import { registerUser } from '../../services/auth';
 import '../../styles/common.css'; // Includes the unified CSS file
-=======
 import { registerUser, isTermsAccepted } from '../../services/auth';
 import '../../styles/common.css'; // כולל את קובץ ה-CSS המאוחד
->>>>>>> cb4dad5a2cc9135f14109deb4751f3f164a86355
 
 const RegisterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
@@ -167,7 +164,7 @@ export default RegisterModal;
 */
 //sprint 3 -
 import React, { useState } from 'react';
-import { registerUser, isTermsAccepted } from '../../services/auth';
+import { registerUser } from '../../services/auth';
 import '../../styles/common.css'; 
 import '../../styles/survey.css';
 
@@ -181,26 +178,18 @@ const RegisterModal = ({ isOpen, onClose }) => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [termsError, setTermsError] = useState('');
   const [registrationError, setRegistrationError] = useState('');
-  const [showSurvey, setShowSurvey] = useState(false); // מצב שמנהל את הצגת השאלון
-
-  // שאלון לסטודנטים
-  const [about, setAbout] = useState(''); // תיבת טקסט 'ספר לי על עצמך'
-  const [difficulty, setDifficulty] = useState(''); // dropdown לנושא הקשה
-  const [preferredEnvironment, setPreferredEnvironment] = useState('');
-  const [learningGoals, setLearningGoals] = useState('');
-  const [learningStrategies, setLearningStrategies] = useState('');
-  const [emotionalSupport, setEmotionalSupport] = useState('');
-  const [studyTime, setStudyTime] = useState('');
+  const [showSurvey, setShowSurvey] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // New state for password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // New state for confirm password visibility
 
   const handleRegisterClick = (e) => {
-    e.preventDefault(); // prevent form submission
+    e.preventDefault();
 
     if (!termsAccepted) {
       setTermsError('You must accept the terms and conditions to register.');
     } else {
       setTermsError('');
 
-      // disply the survey only if the user is student
       if (role === 'student') {
         setShowSurvey(true);
       } else {
@@ -230,7 +219,6 @@ const RegisterModal = ({ isOpen, onClose }) => {
 
   const handleCheckboxChange = (e) => {
     setTermsAccepted(e.target.checked);
-    console.log("Checkbox changed:", e.target.checked);
     if (e.target.checked) {
       setTermsError(''); 
     }
@@ -276,23 +264,45 @@ const RegisterModal = ({ isOpen, onClose }) => {
             </div>
             <div className="form-group">
               <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="password-container">
+                <input
+                  type={showPassword ? 'text' : 'password'} // Toggle password visibility
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <label htmlFor="showPassword" className="show-password-label">
+                  <input
+                    type="checkbox"
+                    id="showPassword"
+                    checked={showPassword}
+                    onChange={(e) => setShowPassword(e.target.checked)} // Handle checkbox change
+                  />
+                  Show Password
+                </label>
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="confirm-password">Confirm Password:</label>
-              <input
-                type="password"
-                id="confirm-password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
+              <div className="password-container">
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'} // Toggle confirm password visibility
+                  id="confirm-password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+                <label htmlFor="showConfirmPassword" className="show-password-label">
+                  <input
+                    type="checkbox"
+                    id="showConfirmPassword"
+                    checked={showConfirmPassword}
+                    onChange={(e) => setShowConfirmPassword(e.target.checked)} // Handle checkbox change
+                  />
+                  Show Password
+                </label>
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="role">Role:</label>
@@ -326,91 +336,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
           </form>
         ) : (
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="about">tell me about yourself:</label>
-              <textarea
-                id="about"
-                value={about}
-                onChange={(e) => setAbout(e.target.value)}
-                rows="4"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="difficulty">In which subject do you have difficulty:</label>
-              <select
-                id="difficulty"
-                value={difficulty}
-                onChange={(e) => setDifficulty(e.target.value)}
-              >
-                <option value="">Choose a topic</option>
-                <option value="math">Math</option>
-                <option value="physics">Physics</option>
-                <option value="programming">Software</option>
-                <option value="electronics">electronics</option>
-                <option value="mechanics">mechanics</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="preferred-environment">Preferred learning environment:</label>
-              <select
-                id="preferred-environment"
-                value={preferredEnvironment}
-                onChange={(e) => setPreferredEnvironment(e.target.value)}
-              >
-                <option value="">Select an environment</option>
-                <option value="quiet">Completely silent</option>
-                <option value="music">with music in the background</option>
-                <option value="white-noise">with white noise</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="learning-goals">Educational goals:</label>
-              <textarea
-                id="learning-goals"
-                value={learningGoals}
-                onChange={(e) => setLearningGoals(e.target.value)}
-                rows="2"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="learning-strategies">Preferred learning strategies:</label>
-              <textarea
-                id="learning-strategies"
-                value={learningStrategies}
-                onChange={(e) => setLearningStrategies(e.target.value)}
-                rows="2"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="emotional-support">emotional support:</label>
-              <select
-                id="emotional-support"
-                value={emotionalSupport}
-                onChange={(e) => setEmotionalSupport(e.target.value)}
-              >
-                <option value="">Select Service</option>
-                <option value="counseling">consultation</option>
-                <option value="workshops">Time management workshops</option>
-                <option value="emotional-support">emotional support</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="study-time">Preferred study times:</label>
-              <select
-                id="study-time"
-                value={studyTime}
-                onChange={(e) => setStudyTime(e.target.value)}
-              >
-                <option value="">Choose a time</option>
-                <option value="morning">morning</option>
-                <option value="afternoon">noon</option>
-                <option value="night">night</option>
-              </select>
-            </div>
-            <div className="form-actions">
-              <button type="submit">Submit Survey</button>
-              <button type="button" onClick={onClose}>Cancel</button>
-            </div>
+            {/* Survey form code goes here */}
           </form>
         )}
       </div>

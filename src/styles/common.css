@@ -45,19 +45,19 @@ body, html {
 
 .header .nav-links {
   display: flex;
-  gap: 20px;
+  gap: 10px;
 }
 .username {
   margin-right: 15px;
   font-size: 1.1em;
   color: white;
   font-size: 24px;
-  font-weight: bold;
 }
+
 .header .nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 24px;
   transition: transform 0.3s ease;
 }
 
@@ -374,16 +374,21 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px; /* Add some padding to avoid the modal sticking to the screen edges */
   z-index: 1000;
 }
 
 .modal-content {
-  background-color: white;
+  background-color: white; 
   color: black;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  width: 400px;
+  max-width: 80%;
+  max-height: 90vh; /* Limit the height of the modal */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  animation: fadeIn 0.3s ease-out;
 }
 
 .logout-logo {
