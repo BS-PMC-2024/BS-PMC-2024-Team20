@@ -1,0 +1,39 @@
+
+/*----------------- */
+/*pop-up chat icon
+/*----------------- */
+
+.chat-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+    background-color: #f1f1f1;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1000;
+  }
+  
+  .chat-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .chat-close {
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .chat-body {
+    text-align: center;
+  }
+  
+  .chat-icon {
+    font-size: 40px;
+  }
+  
+  .chat-tooltip {
+    margin-top: 10px;
+  }
+  

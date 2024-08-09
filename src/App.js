@@ -132,8 +132,9 @@ const App = () => {
         }}
       />
       <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
-      <Footer />
-      <ChatIcon /> {/* הוספת הקומפוננטה של האייקון */}
+      
+      <ChatIcon /> {/* הוספת הקומפוננטה של האייקון */} <Footer />
+      
     </Layout>
   );
 };
