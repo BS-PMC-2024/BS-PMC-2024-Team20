@@ -192,8 +192,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 <option value="math">Math</option>
                 <option value="physics">Physics</option>
                 <option value="programming">Software</option>
-                <option value="electronics">electronics</option>
-                <option value="mechanics">mechanics</option>
+                <option value="electronics">Electronics</option>
+                <option value="mechanics">Mechanics</option>
               </select>
             </div>
             <div className="form-group">
@@ -205,8 +205,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
               >
                 <option value="">Select an environment</option>
                 <option value="quiet">Completely silent</option>
-                <option value="music">with music in the background</option>
-                <option value="white-noise">with white noise</option>
+                <option value="music">With music in the background</option>
+                <option value="white-noise">With white noise</option>
               </select>
             </div>
             <div className="form-group">
@@ -235,9 +235,9 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setEmotionalSupport(e.target.value)}
               >
                 <option value="">Select Service</option>
-                <option value="counseling">consultation</option>
+                <option value="counseling">Consultation</option>
                 <option value="workshops">Time management workshops</option>
-                <option value="emotional-support">emotional support</option>
+                <option value="emotional-support">Emotional support</option>
               </select>
             </div>
             <div className="form-group">
@@ -248,9 +248,9 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setStudyTime(e.target.value)}
               >
                 <option value="">Choose a time</option>
-                <option value="morning">morning</option>
-                <option value="afternoon">noon</option>
-                <option value="night">night</option>
+                <option value="morning">Morning</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="night">Night</option>
               </select>
             </div>
             <div className="form-actions">

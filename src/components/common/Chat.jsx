@@ -54,20 +54,21 @@ const Chat = () => {
         <button onClick={sendMessage}>SEND</button>
       </div>
       <div className="chat-guidelines">
-        <h2>Instructions for an effective conversation with our chat:</h2>
-        <ul>
-          <li>Use respectful and polite language</li>
-          <li>Be clear and concise with your questions</li>
-          <li>Here are examples of starting a conversation with our chat: </li>
-          <ul>
-            <li>Hi Chat, I need help with time management</li>
-            <li>Hi Chat, I have a really hard time studying in the mornings</li>
-            <li>Hi Chat, I have a really hard time studying in the mornings</li>
-          </ul>
-          <li>Please avoid inappropriate language</li>
-          <li>Do not share sensitive personal information.</li>
-        </ul>
-      </div>
+    <h2>Instructions for an effective conversation with our chat:</h2>
+    <ul>
+        <li>Use respectful and polite language</li>
+        <li>Be clear and concise with your questions</li>
+        <li>Here are examples of starting a conversation with our chat:
+            <ul>
+                <li>Hi Chat, I need help with time management</li>
+                <li>Hi Chat, I have a really hard time studying in the mornings</li>
+            </ul>
+        </li>
+        <li>Please avoid inappropriate language</li>
+        <li>Do not share sensitive personal information.</li>
+    </ul>
+    </div>
+
     </>
     
   );

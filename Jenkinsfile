@@ -1,65 +1,118 @@
-
-// new version after adding the sdk to the jenkins Credentials.
 pipeline {
     agent any
+
+    environment {
+        NODE_VERSION = '14.x'
+        FIREBASE_PROJECT_ID = 'ai-aid'
+    }
+
     stages {
-        stage('Build Docker Image') {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Install Node.js') {
             steps {
                 script {
-                    docker.build("shimonbaruch/ai-aid", ".")
+                    // Install Node.js
+                    sh '''
+                        curl -sL https://deb.nodesource.com/setup_14.x | bash -
+                        apt-get install -y nodejs
+                    '''
                 }
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
             }
         }
         stage('Start Server') {
             steps {
-                withCredentials([file(credentialsId: 'firebase-admin-sdk', variable: 'SERVICE_ACCOUNT_JSON')]) {
-                    script {
-                        docker.image("shimonbaruch/ai-aid").inside("-u root") {
-                            // Copy the secret file into the container with root privileges
-                            sh 'cp $SERVICE_ACCOUNT_JSON /app/server/ai-aid-firebase-adminsdk-c313i-1bdc26f499.json'
-                            // Change permissions of the file
-                            sh 'chown node:node /app/server/ai-aid-firebase-adminsdk-c313i-1bdc26f499.json'
-                            // Start the server
-                            sh 'node /app/server/index.js &'
-                            // Wait for the server to start
-                            sh 'sleep 10'
-                        }
-                    }
+                script {
+                    // Start the server in the background
+                    sh 'node server/index.js &'
+                    sleep 10 // Wait for the server to start
                 }
+            }
+        }
+        stage('Start Firebase Emulators') {
+            steps {
+                sh 'firebase emulators:start --only firestore,auth &'
+                sleep 10 // Wait for emulators to start
             }
         }
         stage('Run Admin Integration Tests') {
             steps {
                 script {
-                    docker.image("shimonbaruch/ai-aid").inside("-u node") {
-                        // Cache Firebase Emulators
-                        sh 'mkdir -p ~/.cache/firebase/emulators'
-                        // Run the Admin integration tests
-                        sh 'firebase emulators:exec "npx jest tests/admin/AdminIntegration.test.js"'
-                    }
+                    // Generate a unique email based on the current date
+                    def date = new Date().format("yyyyMMdd")
+                    def adminEmail = "admin${date}@example.com"
+                    def adminPassword = "password"
+                    def adminFirstName = "Admin"
+                    def adminLastName = "User"
+                    def adminRole = "admin"
+
+                    // Update the AdminIntegration.test.js file with the unique email
+                    sh """
+                        sed -i 's/admin5admin5@example.com/${adminEmail}/' tests/admin/AdminIntegration.test.js
+                    """
+
+                    // Run the tests
+                    sh 'npx jest tests/admin/AdminIntegration.test.js --testEnvironment=node'
                 }
             }
         }
         stage('Run Teacher Integration Tests') {
             steps {
                 script {
-                    docker.image("shimonbaruch/ai-aid").inside("-u node") {
-                        // Run the Teacher integration tests
-                        sh 'firebase emulators:exec "npx jest tests/Teacher/TeacherIntegration.test.js"'
-                    }
+                    // Generate a unique email based on the current date
+                    def date = new Date().format("yyyyMMdd")
+                    def teacherEmail = "teacher${date}@example.com"
+                    def teacherPassword = "password"
+                    def teacherFirstName = "Teacher"
+                    def teacherLastName = "User"
+                    def teacherRole = "teacher"
+
+                    // Update the TeacherIntegration.test.js file with the unique email
+                    sh """
+                        sed -i 's/teacher@example.com/${teacherEmail}/' tests/TeacherIntegration.test.js
+                    """
+
+                    // Run the tests
+                    sh 'npx jest tests/TeacherIntegration.test.js --testEnvironment=node'
                 }
             }
         }
-        stage('Push to Docker Hub') {
+        stage('Stop Firebase Emulators and Server') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                    script {
-                        docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                            docker.image("shimonbaruch/ai-aid").push('latest')
-                        }
-                    }
-                }
+                sh 'kill $(lsof -t -i:8080)'
+                sh 'kill $(lsof -t -i:9099)'
+                sh 'kill $(lsof -t -i:5000)'
             }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+        stage('Deploy to Firebase') {
+            steps {
+                sh 'firebase deploy --project ${FIREBASE_PROJECT_ID}'
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: '**/test-results.xml', allowEmptyArchive: true
+            junit 'test-results.xml'
+        }
+        success {
+            echo 'Build and tests were successful.'
+        }
+        failure {
+            echo 'Build or tests failed.'
         }
     }
 }
