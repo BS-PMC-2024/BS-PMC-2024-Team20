@@ -1,4 +1,5 @@
 // src/pages/teacher/TeacherDashboard.jsx
+
 import React, { useEffect, useState } from 'react';
 import '../../styles/common.css';
 import '../../styles/teacher.css';
@@ -11,24 +12,7 @@ const TeacherDashboard = () => {
   const [lastName, setLastName] = useState('');
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
-  // useEffect(() => {
-  //   // Fetch user data from local storage
-  //   const user = JSON.parse(localStorage.getItem('user'));
-  //   if (user && user.firstName && user.lastName) {
-  //     setFirstName(user.firstName);
-  //     setLastName(user.lastName);
-  //   }
-
-  //   // Update the date and time every second
-  //   const timer = setInterval(() => {
-  //     setCurrentDateTime(new Date());
-  //   }, 1000);
-
-  //   return () => clearInterval(timer);
-  // }, []);
-
-
-useEffect(() => {
+  useEffect(() => {
     const fetchUserData = async () => {
       const auth = getAuth(app);
       const db = getFirestore(app);
@@ -61,7 +45,7 @@ useEffect(() => {
     return date.toLocaleDateString('en-US', options);
   };
 
-  // דוגמה לנתונים
+  // Example data
   const upcomingClasses = [
     { subject: 'Mathematics', time: '10:00 AM' },
     { subject: 'Physics', time: '12:00 PM' },
@@ -84,12 +68,12 @@ useEffect(() => {
 
   return (
     <div className="teacher-dashboard">
-      <h1>שלום {firstName} {lastName}!</h1>
+      <h1>Hello {firstName} {lastName}!</h1>
       <div className="date-time">
         <p>{formatDateTime(currentDateTime)}</p>
       </div>
       <div className="section">
-        <h2>שיעורים קרובים</h2>
+        <h2>Upcoming Classes</h2>
         <ul>
           {upcomingClasses.map((classItem, index) => (
             <li key={index}>{classItem.subject} - {classItem.time}</li>
@@ -97,15 +81,15 @@ useEffect(() => {
         </ul>
       </div>
       <div className="section">
-        <h2>משימות להשלמה</h2>
+        <h2>Tasks to Complete</h2>
         <ul>
           {tasks.map((task, index) => (
-            <li key={index}>{task.title} - תאריך יעד: {task.dueDate}</li>
+            <li key={index}>{task.title} - Due Date: {task.dueDate}</li>
           ))}
         </ul>
       </div>
       <div className="section">
-        <h2>הודעות אחרונות</h2>
+        <h2>Latest Messages</h2>
         <ul>
           {messages.map((message, index) => (
             <li key={index}><strong>{message.from}:</strong> {message.content}</li>
@@ -113,7 +97,7 @@ useEffect(() => {
         </ul>
       </div>
       <div className="section">
-        <h2>הודעות ועדכונים</h2>
+        <h2>Announcements</h2>
         <ul>
           {announcements.map((announcement, index) => (
             <li key={index}>{announcement.content}</li>

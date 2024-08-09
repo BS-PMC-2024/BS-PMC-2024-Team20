@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 hey there;
-=======
 turn the server on to listen on port 3001 : commend : node src/services/server.js
 
 
@@ -53,4 +51,3 @@ node index.js
   firebase emulators:exec "npm test"
  */
 
->>>>>>> cb4dad5a2cc9135f14109deb4751f3f164a86355

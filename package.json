@@ -6,6 +6,8 @@
     "@babel/preset-env": "^7.24.8",
     "@babel/preset-react": "^7.24.7",
     "@firebase/rules-unit-testing": "^3.0.3",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -64,6 +66,7 @@
     "cross-env": "^7.0.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
+    "jest-environment-jsdom": "^29.7.0",
     "webpack-dev-server": "^5.0.4"
   }
 }

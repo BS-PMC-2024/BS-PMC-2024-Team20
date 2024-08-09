@@ -1,12 +1,7 @@
 /*
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import { registerUser } from '../../services/auth';
-import '../../styles/common.css'; // Includes the unified CSS file
-=======
 import { registerUser, isTermsAccepted } from '../../services/auth';
 import '../../styles/common.css'; // כולל את קובץ ה-CSS המאוחד
->>>>>>> cb4dad5a2cc9135f14109deb4751f3f164a86355
 
 const RegisterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
@@ -166,8 +161,9 @@ const RegisterModal = ({ isOpen, onClose }) => {
 export default RegisterModal;
 */
 //sprint 3 -
+//sprint 3 -
 import React, { useState } from 'react';
-import { registerUser, isTermsAccepted } from '../../services/auth';
+import { registerUser } from '../../services/auth';
 import '../../styles/common.css'; 
 import '../../styles/survey.css';
 
@@ -181,11 +177,12 @@ const RegisterModal = ({ isOpen, onClose }) => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [termsError, setTermsError] = useState('');
   const [registrationError, setRegistrationError] = useState('');
-  const [showSurvey, setShowSurvey] = useState(false); // מצב שמנהל את הצגת השאלון
+  const [showSurvey, setShowSurvey] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); 
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
 
-  // שאלון לסטודנטים
-  const [about, setAbout] = useState(''); // תיבת טקסט 'ספר לי על עצמך'
-  const [difficulty, setDifficulty] = useState(''); // dropdown לנושא הקשה
+  const [about, setAbout] = useState(''); 
+  const [difficulty, setDifficulty] = useState(''); 
   const [preferredEnvironment, setPreferredEnvironment] = useState('');
   const [learningGoals, setLearningGoals] = useState('');
   const [learningStrategies, setLearningStrategies] = useState('');
@@ -193,14 +190,13 @@ const RegisterModal = ({ isOpen, onClose }) => {
   const [studyTime, setStudyTime] = useState('');
 
   const handleRegisterClick = (e) => {
-    e.preventDefault(); // prevent form submission
+    e.preventDefault();
 
     if (!termsAccepted) {
       setTermsError('You must accept the terms and conditions to register.');
     } else {
       setTermsError('');
 
-      // disply the survey only if the user is student
       if (role === 'student') {
         setShowSurvey(true);
       } else {
@@ -230,7 +226,6 @@ const RegisterModal = ({ isOpen, onClose }) => {
 
   const handleCheckboxChange = (e) => {
     setTermsAccepted(e.target.checked);
-    console.log("Checkbox changed:", e.target.checked);
     if (e.target.checked) {
       setTermsError(''); 
     }
@@ -276,23 +271,45 @@ const RegisterModal = ({ isOpen, onClose }) => {
             </div>
             <div className="form-group">
               <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="password-container">
+                <input
+                  type={showPassword ? 'text' : 'password'} 
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <label htmlFor="showPassword" className="show-password-label">
+                  <input
+                    type="checkbox"
+                    id="showPassword"
+                    checked={showPassword}
+                    onChange={(e) => setShowPassword(e.target.checked)} 
+                  />
+                  Show Password
+                </label>
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="confirm-password">Confirm Password:</label>
-              <input
-                type="password"
-                id="confirm-password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
+              <div className="password-container">
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'} 
+                  id="confirm-password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+                <label htmlFor="showConfirmPassword" className="show-password-label">
+                  <input
+                    type="checkbox"
+                    id="showConfirmPassword"
+                    checked={showConfirmPassword}
+                    onChange={(e) => setShowConfirmPassword(e.target.checked)}
+                  />
+                  Show Password
+                </label>
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="role">Role:</label>
@@ -346,8 +363,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 <option value="math">Math</option>
                 <option value="physics">Physics</option>
                 <option value="programming">Software</option>
-                <option value="electronics">electronics</option>
-                <option value="mechanics">mechanics</option>
+                <option value="electronics">Electronics</option>
+                <option value="mechanics">Mechanics</option>
               </select>
             </div>
             <div className="form-group">
@@ -359,8 +376,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
               >
                 <option value="">Select an environment</option>
                 <option value="quiet">Completely silent</option>
-                <option value="music">with music in the background</option>
-                <option value="white-noise">with white noise</option>
+                <option value="music">With music in the background</option>
+                <option value="white-noise">With white noise</option>
               </select>
             </div>
             <div className="form-group">
@@ -389,9 +406,9 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setEmotionalSupport(e.target.value)}
               >
                 <option value="">Select Service</option>
-                <option value="counseling">consultation</option>
+                <option value="counseling">Consultation</option>
                 <option value="workshops">Time management workshops</option>
-                <option value="emotional-support">emotional support</option>
+                <option value="emotional-support">Emotional support</option>
               </select>
             </div>
             <div className="form-group">
@@ -402,9 +419,9 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setStudyTime(e.target.value)}
               >
                 <option value="">Choose a time</option>
-                <option value="morning">morning</option>
-                <option value="afternoon">noon</option>
-                <option value="night">night</option>
+                <option value="morning">Morning</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="night">Night</option>
               </select>
             </div>
             <div className="form-actions">

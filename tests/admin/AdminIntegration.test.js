@@ -66,7 +66,7 @@ afterEach(async () => {
 
 
 test('Admin can login, fetch users, update role and delete user', async () => {
-  const adminEmail = `Admin${Date.now()}@example.com`;
+  const adminEmail =  `admin${Date.now()}@example.com`;
   const adminPassword = 'password';
   const adminFirstName = 'Admin';
   const adminLastName = 'User';
@@ -75,8 +75,8 @@ test('Admin can login, fetch users, update role and delete user', async () => {
   await registerUser(adminEmail, adminPassword, adminFirstName, adminLastName, adminRole);
 
   const users = [
-    { email: `student1${Date.now()}@example.com`, password: 'password', firstName: 'John', lastName: 'Doe', role: 'student' },
-    { email: `student2${Date.now()}@example.com`, password: 'password', firstName: 'Jane', lastName: 'Doe', role: 'student' },
+    { email:  `student1${Date.now()}@example.com`, password: 'password', firstName: 'John', lastName: 'Doe', role: 'student' },
+    { email:  `student2${Date.now()}@example.com`, password: 'password', firstName: 'Jane', lastName: 'Doe', role: 'student' },
   ];
   for (const user of users) {
     await registerUser(user.email, user.password, user.firstName, user.lastName, user.role);
@@ -116,3 +116,4 @@ test('Admin can login, fetch users, update role and delete user', async () => {
 
 
 
+//aaa test

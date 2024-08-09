@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail  } from 'firebase/auth';
-import { getFirestore, doc,setDoc, getDoc, collection, getDocs,addDoc, updateDoc,serverTimestamp, deleteDoc, query  } from 'firebase/firestore';
+import { getFirestore, doc,setDoc, getDoc, collection, getDocs,addDoc, updateDoc,serverTimestamp, deleteDoc, query, where  } from 'firebase/firestore';
 
 import { app } from '../connections/firebaseConfig'; 
 
@@ -17,6 +17,22 @@ export const registerUser = async (email, password, firstName, lastName, role) =
   await updateUserCountHistory();
   return user;
 };
+export const countUnreadMessages = async (userEmail) => {
+  try {
+    const q = query(
+      collection(db, 'userMessages'),
+      where('toUser', '==', userEmail),
+      where('isRead', '==', false)
+    );
+
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.size;
+  } catch (error) {
+    console.error('Error counting unread messages:', error);
+    return 0;
+  }
+};
+
 
 export const isTermsAccepted = (termsAccepted) => {
   return termsAccepted;
@@ -176,13 +192,27 @@ export const sendMessage = async (fromRole, fromUser, toRole, toUser, message) =
       toUser,
       message,
       sender: user.email,
-      timestamp: serverTimestamp()
+      timestamp: serverTimestamp(),
+      isRead: false  // add a flag indicating whether the message is read
     });
   } catch (error) {
     console.error('Error sending message:', error);
     throw new Error('Failed to send message.');
   }
 };
+//add a function to indicate that the message is read
+export const markMessageAsRead = async (messageId) => {
+  try {
+    const messageRef = doc(db, 'userMessages', messageId);
+    await updateDoc(messageRef, {
+      isRead: true
+    });
+  } catch (error) {
+    console.error('Error marking message as read:', error);
+    throw new Error('Failed to mark message as read.');
+  }
+};
+
 
 export const receiveMessages = async (userEmail, role) => {
   const messagesSnapshot = await getDocs(collection(db, 'userMessages'));
