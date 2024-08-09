@@ -501,9 +501,36 @@ li {
 }
 
 
-
 .error {
   color: red;
   font-weight: bold;
+  margin-top: 10px;
+}
+
+
+/* -------- Cards Student Dashboard ----- */
+
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.card {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  flex-basis: calc(50% - 10px);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.card-content {
   margin-top: 10px;
 }

@@ -24,17 +24,17 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <Link to="/terms-of-service" className="footer-link">
-          תנאי שימוש
+          Terms Of Service
         </Link>
         {role === 'admin' && (
           <Link to="/contact-admin" className="footer-link">
-            צור קשר
+            Contact Us
           </Link>
         )}
 
         {role !== 'admin' && (
           <Link to="/send-contact-admin" className="footer-link">
-            צור קשר
+            Contact Us
           </Link>
         )}
       </div>
