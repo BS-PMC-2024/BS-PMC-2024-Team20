@@ -31,6 +31,7 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.1",
+    "react-tooltip": "^5.28.0",
     "sweetalert2": "^11.12.3",
     "sweetalert2-react-content": "^5.0.7",
     "util": "^0.12.5",

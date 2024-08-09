@@ -1,4 +1,4 @@
-/* עיצוב כללי לצ'אט */
+/*design for chat*/
 .chat-container {
   display: flex;
   flex-direction: column;
@@ -130,4 +130,3 @@
   text-align: center;
   color: #777;
 }
-

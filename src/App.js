@@ -72,10 +72,10 @@ const App = () => {
       setRole(null);
       localStorage.removeItem('userRole');
       Swal.fire({
-        title: 'התנתקת בהצלחה',
-        text: 'לחץ על אישור להמשך',
+        title: 'Logout successfuly!',
+        text: 'click confirm to continue',
         icon: 'success',
-        confirmButtonText: 'אישור',
+        confirmButtonText: 'confirm',
         customClass: {
           confirmButton: 'swal-button'
         }
