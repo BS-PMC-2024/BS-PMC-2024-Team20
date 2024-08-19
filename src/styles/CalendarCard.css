@@ -1,0 +1,27 @@
+.task-tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .task-tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; 
+    left: 50%;
+    margin-left: -70px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .task-tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  

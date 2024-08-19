@@ -10,8 +10,9 @@ import '../../styles/CalendarCard.css';
 
 const db = getFirestore(app);
 //git add src\components\common\Card.jsx
-//git commit -m "BSPMS2420-77 <CardContainer>"
-//git push origin ShimonBAruch
+//git commit -m "BSPMS2420-84 <CardContainer>"
+//git push origin ShimonBaruch
+
 
 
 
