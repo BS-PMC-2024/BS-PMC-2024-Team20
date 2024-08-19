@@ -3,6 +3,11 @@ import { getAllUsers, updateUserRole, getUserSessionAverage } from '../../servic
 import '../../styles/common.css';
 import Swal from 'sweetalert2';
 
+
+    //git add src\pages\admin\ManageUsers.jsx
+  //git commit -m "BSPMS2420-75 <ManageUsers - update>"
+//git push origin ShimonBaruch
+
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
 
