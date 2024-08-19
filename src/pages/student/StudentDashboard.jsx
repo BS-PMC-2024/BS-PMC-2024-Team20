@@ -14,7 +14,7 @@ import '../../styles/CalendarCard.css';
 
 
 //git add src\pages\student\StudentDashboard.jsx
-//git commit -m "BSPMS2420-85 <StudentDashboard- tools dispaly>"
+//git commit -m "BSPMS2420-85 <StudentDashboard- tools display>"
 //git push origin ShimonBaruch
 
 
