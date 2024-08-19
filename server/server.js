@@ -1,29 +1,41 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const { sendMessageToGPT } = require('./api');
-
+const { sendMessageToGPT, getSurveyTipsFromGPT } = require('./api'); // וודא שהפונקציות מיובאות נכון מהקובץ api.js
 const app = express();
-const port = process.env.PORT || 3002;
+const cors = require('cors'); // ייבוא חבילת CORS
 
-app.use(bodyParser.json());
-app.use(cors());
 
+app.use(express.json());
+app.use(cors()); // שימוש ב-CORS בכל הבקשות
+
+
+// נתיב הקיים עבור הצ'אט
 app.post('/api/chat', async (req, res) => {
-  const { message } = req.body;
   try {
+    const { message } = req.body;
     const response = await sendMessageToGPT(message);
     res.json(response);
   } catch (error) {
-    console.error('Error:', error.message); // הדפסת הודעת השגיאה
-    console.error('Stack:', error.stack); // הדפסת ה-stack trace
-    res.status(500).send('Error communicating with GPT');
+    console.error('Error communicating with GPT:', error.message);
+    res.status(500).send('Failed to communicate with GPT');
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// נתיב חדש עבור ה-סקר
+app.post('/api/getSurveyTipsFromGPT', async (req, res) => {
+  try {
+    const surveyResponses = req.body;
+    const tips = await getSurveyTipsFromGPT(surveyResponses);
+    res.json({ gptResponse: tips });
+  } catch (error) {
+    console.error('Error generating survey tips:', error.message);
+    res.status(500).send('Failed to generate survey tips');
+  }
 });
 
-// turn the server on to listen on port 3001
+const PORT = process.env.PORT || 3002;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+// turn the server on to listen on port 3002
 //node server/server.js

@@ -1,4 +1,3 @@
-//BSPMS2420-38 - chat with ai!
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../../styles/chat.css';
@@ -6,12 +5,14 @@ import '../../styles/chat.css';
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false); // סטייט לחיווי טעינה
 
   const sendMessage = async () => {
     if (input.trim() === '') return;
 
     const userMessage = { role: 'user', content: input };
     setMessages([...messages, userMessage]);
+    setLoading(true); // התחלת טעינה
 
     try {
       const response = await axios.post('http://localhost:3002/api/chat', { message: input });
@@ -27,6 +28,8 @@ const Chat = () => {
       }
     } catch (error) {
       console.error('Error sending message:', error);
+    } finally {
+      setLoading(false); // סיום טעינה
     }
 
     setInput('');
@@ -43,6 +46,7 @@ const Chat = () => {
             {msg.content}
           </div>
         ))}
+        {loading && <div className="loading-spinner"></div>} {/* סמן טעינה */}
       </div>
       <div className="chat-input">
         <input
@@ -50,27 +54,26 @@ const Chat = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type here your message... "
+          disabled={loading} // נטרול תיבת הטקסט בזמן טעינה
         />
-        <button onClick={sendMessage}>SEND</button>
+        <button onClick={sendMessage} disabled={loading}>SEND</button> {/* נטרול הכפתור בזמן טעינה */}
       </div>
       <div className="chat-guidelines">
-    <h2>Instructions for an effective conversation with our chat:</h2>
-    <ul>
-        <li>Use respectful and polite language</li>
-        <li>Be clear and concise with your questions</li>
-        <li>Here are examples of starting a conversation with our chat:
-            <ul>
-                <li>Hi Chat, I need help with time management</li>
-                <li>Hi Chat, I have a really hard time studying in the mornings</li>
-            </ul>
-        </li>
-        <li>Please avoid inappropriate language</li>
-        <li>Do not share sensitive personal information.</li>
-    </ul>
-    </div>
-
+        <h2>Instructions for an effective conversation with our chat:</h2>
+        <ul>
+            <li>Use respectful and polite language</li>
+            <li>Be clear and concise with your questions</li>
+            <li>Here are examples of starting a conversation with our chat:
+                <ul>
+                    <li>Hi Chat, I need help with time management</li>
+                    <li>Hi Chat, I have a really hard time studying in the mornings</li>
+                </ul>
+            </li>
+            <li>Please avoid inappropriate language</li>
+            <li>Do not share sensitive personal information.</li>
+        </ul>
+      </div>
     </>
-    
   );
 };
 

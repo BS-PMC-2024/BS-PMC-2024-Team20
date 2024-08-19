@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // שליחת בקשה לשרת שבו APIChat מאזין.
+
 import '../../styles/CustomSurvey.css';
 
 const Survey = () => {
@@ -9,6 +11,9 @@ const Survey = () => {
         question3: 0,
         openEnded: ''
     });
+
+    const [aiResponse, setAiResponse] = useState(''); 
+    const [loading, setLoading] = useState(false); // סטייט לחיווי טעינה
 
     const sliderLabels = {
         question1: ["Poor Focus", "Excellent Focus"],
@@ -26,11 +31,22 @@ const Survey = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Save the surveyResponses to the database
-        // Redirect to the homepage after submission
-        navigate('/studentDashboard');
+        setLoading(true); // התחלת טעינה
+        try {
+            const response = await axios.post('http://localhost:3002/api/getSurveyTipsFromGPT', surveyResponses);
+            if (response.status === 200) {
+                console.log('Received message object:', response.data.gptResponse); // בדיקה שהתגובה נכונה
+                setAiResponse(response.data.gptResponse); // עדכון תשובת ה-AI ב-state
+            } else {
+                console.error('Unexpected response status:', response.status);
+            }
+        } catch (error) {
+            console.error('Error fetching GPT response:', error);
+        } finally {
+            setLoading(false); // סיום טעינה
+        }
     };
 
     return (
@@ -39,7 +55,7 @@ const Survey = () => {
             <p style={{ textAlign: 'center', marginBottom: '50px' }}>
                 Based on the answer of this survey, I will give you some tips to start:
             </p>
-         
+        
             <form onSubmit={handleSubmit}>
                 <div className="survey-question" data-question-number="1">
                     <label><i className="fas fa-brain"></i> How do you rate your focus during study sessions?</label>
@@ -69,17 +85,28 @@ const Survey = () => {
                     <label><i className="fas fa-pencil-alt"></i> Tell me about you: (max 100 characters):</label>
                     <input type="text" name="openEnded" maxLength="100" value={surveyResponses.openEnded} onChange={handleChange} />
                 </div>
-                <button type="submit">Finish Survey</button>
+                <button type="submit" disabled={loading}>Finish Survey</button> {/* כפתור נטרל בזמן טעינה */}
             </form>
+
+            {loading && <div className="loading-spinner"></div>} {/* סמן טעינה */}
             
             <div className="ai-response">
                 <h3>Answer From Ai:</h3>
                 <textarea 
                     id="aiResponse" 
                     name="aiResponse" 
-                    placeholder="Here will be the AI's response based on your survey answers.">
-                </textarea>
+                    placeholder="Here will be the AI's response based on your survey answers."
+                    value={aiResponse} 
+                    readOnly
+                />
             </div>
+
+            {/* כפתור ניווט שמופיע רק אם יש תשובה מ-GPT */}
+            {aiResponse && !loading && (
+                <button onClick={() => navigate('/student/dashboard')}>
+                    Go to Dashboard
+                </button>
+            )}
         </div>
     );
 };

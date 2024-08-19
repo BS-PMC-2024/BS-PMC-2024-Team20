@@ -12,7 +12,7 @@ import ManageUsers from './pages/admin/ManageUsers';
 import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
 import  saveUserSession  from './services/saveUserSession';
-import CustomSurvey from './pages/student/CustomSurvey' ;
+import CustomSurvey from './components/common/CustomSurvey' ;
 
 import Blog from './components/common/blog';
 // Communication
