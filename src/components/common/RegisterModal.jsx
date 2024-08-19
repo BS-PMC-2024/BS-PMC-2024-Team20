@@ -167,6 +167,7 @@ import { registerUser } from '../../services/auth';
 import '../../styles/common.css'; 
 import '../../styles/survey.css';
 
+
 const RegisterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -405,7 +406,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 value={emotionalSupport}
                 onChange={(e) => setEmotionalSupport(e.target.value)}
               >
-                <option value="">Select Service</option>
+                <option value="">Select Service:</option>
                 <option value="counseling">Consultation</option>
                 <option value="workshops">Time management workshops</option>
                 <option value="emotional-support">Emotional support</option>
@@ -418,8 +419,9 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 value={studyTime}
                 onChange={(e) => setStudyTime(e.target.value)}
               >
-                <option value="">Choose a time</option>
+                <option value="">Choose a time:</option>
                 <option value="morning">Morning</option>
+                <option value="noon">Noon</option>
                 <option value="afternoon">Afternoon</option>
                 <option value="night">Night</option>
               </select>
