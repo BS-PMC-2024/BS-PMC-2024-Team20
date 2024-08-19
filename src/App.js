@@ -13,9 +13,7 @@ import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
 import { updateSurveyAverage } from './services/auth';
 import  saveUserSession  from './services/saveUserSession';
-
-
-
+import CustomSurvey from './components/common/CustomSurvey' ;
 
 import Blog from './components/common/blog';
 // Communication
@@ -119,7 +117,15 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/terms-of-service" element={<TermsOfService />} /> 
-        {role === 'student' && <Route path="/student/dashboard" element={<StudentDashboard />} />}
+        {role === 'student' &&  <Route path="/student/dashboard" element={<StudentDashboard /> } />}
+        {role === 'student' && (
+        <>
+            <Route path="/student/dashboard" element={<StudentDashboard /> } />
+            <Route path="/customSurvey" element={< CustomSurvey /> } />
+        </>
+
+        )}
+
         {role === 'admin' && (
           <>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />

@@ -1,4 +1,4 @@
-/*design for chat*/
+/* design for chat */
 .chat-container {
   display: flex;
   flex-direction: column;
@@ -29,6 +29,7 @@
   padding: 3rem;
   overflow-y: scroll;
   background-color: #f9f9f9;
+  position: relative;
 }
 
 .user-message, .bot-message {
@@ -129,4 +130,25 @@
   font-size: 0.9rem;
   text-align: center;
   color: #777;
+}
+
+/* עיצוב סמן הטעינה */
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #6c827d;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+  position: relative;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
