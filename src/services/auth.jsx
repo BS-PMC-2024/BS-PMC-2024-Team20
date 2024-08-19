@@ -3,17 +3,15 @@ import { getFirestore, doc,setDoc, getDoc, collection, getDocs,addDoc, updateDoc
 
 import { app } from '../connections/firebaseConfig'; 
 
-
-
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export const registerUser = async (email, password, firstName, lastName, role) => {
+export const registerUser = async (email, password, firstName, lastName, role, about) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
   //console.log(firstName, lastName, role);
   //when user is created the CountHistory function will be called to update the chart in the admin dashboard.
-  await setDoc(doc(db, 'userRoles', user.uid), { role: role,email: email ,firstName :firstName,lastName:lastName});
+  await setDoc(doc(db, 'userRoles', user.uid), { role: role,email: email ,firstName :firstName,lastName:lastName,about:about});
   await updateUserCountHistory();
   return user;
 };
