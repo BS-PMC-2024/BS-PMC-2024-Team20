@@ -61,7 +61,9 @@ const ManageUsers = () => {
       });
     }
   };
-
+    //git add src\pages\admin\ManageUsers.jsx
+  //git commit -m "BSPMS2420-79 <handleExportData>"
+//git push origin ShimonBaruch
   const handleExportData = () => {
     const csvContent = "data:text/csv;charset=utf-8," 
       + "Email,Role,First Name,Last Name,Average Time (minutes)\n" 
