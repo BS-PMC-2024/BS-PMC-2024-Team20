@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import '../../styles/studentdashboard.css';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { app } from '../../connections/firebaseConfig';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import { getUserCountHistory } from '../../services/auth';
-import { Doughnut } from 'react-chartjs-2';
-import 'chart.js/auto';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTasks, faComments, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
-const MySwal = withReactContent(Swal);
+import 'react-calendar/dist/Calendar.css';
+import { Card, TimerCard } from '../../components/common/Card';
+import '../../styles/CalendarCard.css';
+import UserCountHistory from './UserCountHistory'; // Import the UserCountHistory component
+import UserCount from './UserCount'; // Import the UserCountHistory component
+import SurveyResultsChart from './SurveyResultsChart';
+import UserRolesChart from './UserRolesChart';
+import FeedbackSurvey from './FeedbackSurvey';
+import FeedbackList from './FeedbackList';
 
-const AdminHome = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [userTarget] = useState(100); 
+
+const AdminDashboard = () => {
+  const [setFirstName] = useState('');
+  const [ setLastName] = useState('');
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -25,13 +32,21 @@ const AdminHome = () => {
         const userDoc = await getDoc(doc(db, 'userRoles', user.uid));
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          setFirstName(userData.firstName || '');
-          setLastName(userData.lastName || '');
+          if (userData.firstName && userData.lastName) {
+            //setFirstName(userData.firstName);
+            //setLastName(userData.lastName);
+          }
         }
       }
     };
 
     fetchUserData();
+
+    const timer = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, []);
 
   const formatDateTime = (date) => {
@@ -39,48 +54,36 @@ const AdminHome = () => {
     return date.toLocaleDateString('en-US', options);
   };
 
-  const openPhiChartPopup = async () => {
-    const userCountHistory = await getUserCountHistory(); // להביא את היסטוריית המשתמשים
-    const currentUserCount = userCountHistory.length > 0 ? userCountHistory[userCountHistory.length - 1].count : 0;
-    const remainingUsers = userTarget - currentUserCount > 0 ? userTarget - currentUserCount : 0;
-
-    const data = {
-      labels: ['Actual Users', 'Remaining Users'],
-      datasets: [{
-        data: [currentUserCount, remainingUsers],
-        backgroundColor: ['#36A2EB', '#FF6384'],
-        hoverBackgroundColor: ['#36A2EB', '#FF6384']
-      }]
-    };
-
-    MySwal.fire({
-      title: 'User Count Target vs Actual',
-      html: <Doughnut data={data} />,
-      showCloseButton: true,
-      confirmButtonText: 'Close',
-      width: '600px',
-      padding: '20px',
-      customClass: {
-        popup: 'custom-swal-popup'
-      }
-    });
-  };
-
   return (
     <>
-      <h1>Hello {firstName} {lastName}!</h1>
+     
       <div className="date-time">
-        <p>{formatDateTime(new Date())}</p>
+        <p>{formatDateTime(currentDateTime)}</p>
       </div>
-      <div className="section">
-        <h2>Statistics</h2>
-        <button className="statistic-preview" onClick={openPhiChartPopup}>
-          <h3>User Target vs Actual</h3>
-          <p>Click to view details</p>
-        </button>
+      <div className="dashboard-container">
+        <Card icon={<FontAwesomeIcon icon={faChartLine} />} title="Admin Insights">
+          <UserCount/>
+        </Card>
+       
+        <Card icon={<FontAwesomeIcon icon={faChartLine} />} title="User Count History">
+          <UserCountHistory />
+        </Card>
+        <Card icon={<FontAwesomeIcon icon={faChartLine} />} title="User Roles Distribution">
+            <UserRolesChart />
+        </Card>
+        <Card icon={<FontAwesomeIcon icon={faChartLine} />} title="Survey Results">
+          <SurveyResultsChart />
+        </Card>
+        <Card icon={<FontAwesomeIcon icon={faTasks} />} title="User Feedback Survey">
+          <FeedbackSurvey />
+        </Card>
+        <Card icon={<FontAwesomeIcon icon={faComments} />} title="User Feedback">
+          <FeedbackList />
+        </Card>
+
       </div>
     </>
   );
 };
 
-export default AdminHome;
+export default AdminDashboard;

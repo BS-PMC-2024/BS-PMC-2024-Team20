@@ -4,7 +4,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import { app } from '../../connections/firebaseConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTasks, faEnvelope, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { faTasks,  faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
 import 'react-calendar/dist/Calendar.css';
 import { Card, TaskCard, TimerCard, CalendarCard } from '../../components/common/Card';

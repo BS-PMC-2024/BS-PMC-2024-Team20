@@ -354,4 +354,97 @@ export const markTaskAsDone = async (taskId) => {
     console.error('Error marking task as done: ', error);
   }
 };
+//questions fot the survey:
+const questions = [
+  "I think that I would like to use this system frequently.",
+  "I found the system unnecessarily complex.",
+  "I thought the system was easy to use.",
+  "I think that I would need the support of a technical person to be able to use this system.",
+  "I found the various functions in this system were well integrated."
+];
+//this function takes the survy answers and puts them into the db and creates an avg 
+export const updateSurveyAverage = async (surveyResults) => {
+  const surveyDocRef = doc(db, 'surveys', 'SUS_Average');
+  
+  try {
+    if (!Array.isArray(surveyResults)) {
+      throw new Error('surveyResults must be an array.');
+    }
 
+    const surveyDoc = await getDoc(surveyDocRef);
+
+    if (surveyDoc.exists()) {
+      const currentData = surveyDoc.data();
+      const currentAverages = currentData.averages || [];
+      const currentCount = currentData.count || 0;
+
+      const newAverages = questions.map((question, index) => {
+        const currentAvg = currentAverages[index] || 0;
+        return ((currentAvg * currentCount) + parseInt(surveyResults[index])) / (currentCount + 1);
+      });
+
+      const newCount = currentCount + 1;
+
+      const updatedData = {
+        averages: newAverages,
+        count: newCount,
+        questions: questions
+      };
+
+      await setDoc(surveyDocRef, updatedData);
+    } else {
+      const initialData = {
+        averages: surveyResults.map(result => parseInt(result)),
+        count: 1,
+        questions: questions
+      };
+
+      await setDoc(surveyDocRef, initialData);
+    }
+
+    console.log('Survey results successfully updated.');
+  } catch (error) {
+    console.error('Error updating survey results:', error);
+  }
+};
+export const displaySurveyResults = async () => {
+  const surveyDocRef = doc(db, 'surveys', 'SUS_Average');
+  
+  try {
+    const surveyDoc = await getDoc(surveyDocRef);
+
+    if (surveyDoc.exists()) {
+      const surveyData = surveyDoc.data();
+      const { averages, count, questions } = surveyData;
+
+      console.log(`Survey Results (Based on ${count} submissions):`);
+      
+      questions.forEach((question, index) => {
+        console.log(`${question}`);
+        console.log(`Average Score: ${averages[index].toFixed(2)}`);
+        console.log('---------------------------');
+      });
+
+    } else {
+      console.log('No survey results found.');
+    }
+  } catch (error) {
+    console.error('Error fetching survey results:', error);
+  }
+};
+
+
+
+
+
+export const saveUserFeedback = async (feedback) => {
+  try {
+    await addDoc(collection(db, 'feedbackSurvey'), {
+      feedback,
+      timestamp: new Date(),
+    });
+    console.log('User feedback successfully saved.');
+  } catch (error) {
+    console.error('Error saving user feedback:', error);
+  }
+};
