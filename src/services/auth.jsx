@@ -299,3 +299,59 @@ export const recordWorkingHours = async (date, hours) => {
     time: serverTimestamp()
   });
 };
+//git add ai-aid\src\services\auth.jsx
+//git commit -m "BSPMS2420-82 <getUserSessionAverage>"
+//git push origin ShimonBaruch
+export const getUserSessionAverage = async (uid) => {
+  const userRef = doc(db, "userlogtime", uid);
+  const docSnap = await getDoc(userRef);
+
+  if (!docSnap.exists()) {
+    return "N/A";// if no data is available
+  }
+
+  const userData = docSnap.data();
+  const loginTimes = userData.loginTimes || [];
+  const logoutTimes = userData.logoutTimes || [];
+
+  if (loginTimes.length === 0 || logoutTimes.length === 0) {
+    return "N/A"; 
+  }
+
+  let totalDuration = 0;
+  for (let i = 0; i < loginTimes.length && i < logoutTimes.length; i++) {
+    const loginTime = new Date(loginTimes[i]).getTime();
+    const logoutTime = new Date(logoutTimes[i]).getTime();
+    totalDuration += (logoutTime - loginTime);
+  }
+
+  const averageDuration = totalDuration / loginTimes.length;
+  return Math.round(averageDuration / 60000); 
+};
+
+export const addTask = async (taskTitle, dueDate) => {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      await addDoc(collection(db, 'tasks'), {
+        uid: user.uid,
+        title: taskTitle,
+        dueDate: dueDate,
+        done: false 
+      });
+    }
+  } catch (error) {
+    console.error('Error adding task: ', error);
+  }
+};
+export const markTaskAsDone = async (taskId) => {
+  try {
+    const taskRef = doc(db, 'tasks', taskId);
+    await updateDoc(taskRef, {
+      done: true
+    });
+  } catch (error) {
+    console.error('Error marking task as done: ', error);
+  }
+};
+
