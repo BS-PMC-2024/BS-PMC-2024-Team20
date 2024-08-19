@@ -1,37 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/studentdashboard.css';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import { app } from '../../connections/firebaseConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTasks, faEnvelope, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
 import 'react-calendar/dist/Calendar.css';
-import { Card, CalendarCard, TimerCard } from '../../components/common/Card';
+import { Card, TaskCard, TimerCard, CalendarCard } from '../../components/common/Card';
+import '../../styles/CalendarCard.css';
+
+
+
+
+//git add src\pages\student\StudentDashboard.jsx
+//git commit -m "BSPMS2420-85 <StudentDashboard- tools display>"
+//git push origin ShimonBaruch
+
 
 const StudentDashboard = () => {
-  // משתני state להגדרת שם המשתמש והזמן הנוכחי
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
-
-  // נתונים להדמיה (במקום קבלת מידע מפיירבייס)
-  const tasks = [
-    { title: 'Complete Assignment 1', dueDate: '2024-07-18' },
-    { title: 'Prepare for Physics Test', dueDate: '2024-07-20' },
-  ];
-
-  const messages = [
-    { from: 'Professor Smith', content: 'Don\'t forget to submit your assignment by Friday.' },
-    { from: 'Admin', content: 'Campus will be closed on Monday.' },
-  ];
+  const [completedTasks, setCompletedTasks] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
       const auth = getAuth(app);
       const db = getFirestore(app);
       const user = auth.currentUser;
-      
+
       if (user) {
         const userDoc = await getDoc(doc(db, 'userRoles', user.uid));
         if (userDoc.exists()) {
@@ -44,7 +42,16 @@ const StudentDashboard = () => {
       }
     };
 
+    const fetchCompletedTasks = async () => {
+      const db = getFirestore(app);
+      const tasksSnapshot = await getDocs(collection(db, 'tasks'));
+      const tasksData = tasksSnapshot.docs.map(doc => doc.data());
+      const completed = tasksData.filter(task => task.done === true);
+      setCompletedTasks(completed);
+    };
+
     fetchUserData();
+    fetchCompletedTasks();
 
     const timer = setInterval(() => {
       setCurrentDateTime(new Date());
@@ -53,7 +60,6 @@ const StudentDashboard = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // פונקציה לעיצוב הזמן
   const formatDateTime = (date) => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
     return date.toLocaleDateString('en-US', options);
@@ -61,26 +67,20 @@ const StudentDashboard = () => {
 
   return (
     <>
-      { <h1>Hello {firstName} {lastName}!</h1> }
+      <h1>Hello {firstName} {lastName}!</h1>
       <div className="date-time">
         <p>{formatDateTime(currentDateTime)}</p>
       </div>
       <div className="dashboard-container">
         <CalendarCard />
-        <Card icon={<FontAwesomeIcon icon={faTasks} />} title="Tasks to Complete">
+        <Card icon={<FontAwesomeIcon icon={faTasks} />} title="Completed Tasks">
           <ul>
-            {tasks.map((task, index) => (
+            {completedTasks.map((task, index) => (
               <li key={index}>{task.title} - Due: {task.dueDate}</li>
             ))}
           </ul>
         </Card>
-        <Card icon={<FontAwesomeIcon icon={faEnvelope} />} title="Recent Messages">
-          <ul>
-            {messages.map((message, index) => (
-              <li key={index}><strong>{message.from}:</strong> {message.content}</li>
-            ))}
-          </ul>
-        </Card>
+        <TaskCard />
         <Card icon={<FontAwesomeIcon icon={faLightbulb} />} title="Study Tips">
           <ul>
             <li>Take regular breaks to stay focused.</li>

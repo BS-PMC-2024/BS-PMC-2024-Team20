@@ -75,6 +75,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
+    
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Register</h2>
