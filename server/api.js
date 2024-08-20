@@ -39,12 +39,17 @@ const sendMessageToGPT = async (message) => {
 const getSurveyTipsFromGPT = async (surveyResponses) => {
   try {
     console.log('Preparing prompt for GPT...');
-    const prompt = `בשורה הראשונה תרשום: שמחים שהצטרפת אלינו, אנחנו כאן תמיד בשבילך!
-    בהתבסס על קלט המשתמש הבא, ספק שלושה טיפים להרגלי לימוד טובים יותר:\n
-    התמקדות: ${surveyResponses.question1}\n
-    ניהול זמן: ${surveyResponses.question2}\n
-    הסחת דעת: ${surveyResponses.question3}\n
-    מידע נוסף: ${surveyResponses.openEnded}`;
+    const prompt = `
+    תכיל בתגובה שלך את המשפט: "שמחים שהצטרפת אלינו, אנחנו כאן תמיד בשבילך!"
+    ולאחר מכן, בהתבסס על המידע שסופק, ספק שלושה טיפים להרגלי לימוד טובים יותר:
+    /n
+    התמקדות: ${surveyResponses.question1}/n
+    ניהול זמן: ${surveyResponses.question2}/n
+    הסחת דעת: ${surveyResponses.question3}/n
+    
+    מידע נוסף: ${surveyResponses.openEnded}
+    `;
+
 
     console.log('Sending prompt to GPT:', prompt);
     const response = await sendMessageToGPT(prompt); // קריאה לפונקציה הקיימת

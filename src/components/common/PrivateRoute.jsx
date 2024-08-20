@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { getRole } from '../../services/auth';
+import '../../styles/transitionPages.css';
 
 const PrivateRoute = ({ children, allowedRoles, ...rest }) => {
   const auth = getAuth();

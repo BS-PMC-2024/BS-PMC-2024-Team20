@@ -4,6 +4,7 @@ import '../../styles/common.css';
 import { loginUser } from '../../services/auth';
 import { useNavigate } from 'react-router-dom';
 import {ForgotPassword} from './ForgotPassword.jsx';
+import '../../styles/transitionPages.css';
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister, onLoginSuccess }) => {
   const [email, setEmail] = useState('');

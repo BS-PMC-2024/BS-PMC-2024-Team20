@@ -35,6 +35,13 @@ import askSurvey from './pages/admin/askSurvey';
 import { saveUserFeedback } from './services/auth';
 
 import StudentRecommendations from './pages/student/StudentRecommendations';
+import '../src/styles/transitionPages.css';
+
+// ------- this is for transition between pages ---- install package //
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { useLocation } from 'react-router-dom';
+//
+
 
 const App = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -42,6 +49,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(localStorage.getItem('userRole'));
   const navigate = useNavigate();
+  const location = useLocation(); // for transition.
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -116,7 +124,9 @@ const App = () => {
   
   return (
     <Layout user={user} role={role} onOpenLogin={() => setIsLoginOpen(true)} onLogout={handleLogout}>
-      <Routes>
+       <TransitionGroup>
+        <CSSTransition key={location.key} classNames="fade" timeout={300}>
+          <Routes location={location}>
         <Route path="/" element={<HomePage />} />
         <Route path="/terms-of-service" element={<TermsOfService />} /> 
         {role === 'student' &&  <Route path="/student/dashboard" element={<StudentDashboard /> } />}
@@ -128,6 +138,7 @@ const App = () => {
         {role === 'student' && (
         <>
             <Route path="/student/dashboard" element={<StudentDashboard /> } />
+            <Route path="/homepage" element={<HomePage /> } />
             <Route path="/customSurvey" element={< CustomSurvey /> } />
         </>
 
@@ -140,10 +151,10 @@ const App = () => {
             <Route path="/contact-admin" element={<ContactAdmin />} />
             <Route path="/admin/working-hours" element={<AdminWorkingHours />} />
             <Route path="/admin/record-working-hours" element={<RecordWorkingHours />} />
-            
-           
           </>
         )}
+
+
         {role === 'teacher' && <Route path="/teacher/dashboard" element={<TeacherDashboard />} />}
         {role === 'teacher' && (
         <>
@@ -160,7 +171,11 @@ const App = () => {
         <Route path="/send-contact-admin" element={<SendContactAdmin />} />
         <Route path="/terms-of-service" element={<TermsOfService />} /> 
         <Route path="/chat" element={<Chat />} /> {/* הוספת הראוט לקומפוננטת Chat */}
+
+
       </Routes>
+      </CSSTransition>
+      </TransitionGroup>
       <LoginModal  
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}

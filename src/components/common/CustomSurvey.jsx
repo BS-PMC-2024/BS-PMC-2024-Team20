@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // שליחת בקשה לשרת שבו APIChat מאזין.
 
 import '../../styles/CustomSurvey.css';
+import '../../styles/transitionPages.css';
 
 const Survey = () => {
     const [surveyResponses, setSurveyResponses] = useState({

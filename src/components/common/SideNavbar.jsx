@@ -30,7 +30,7 @@ const SideNavbar = ({ role }) => {
             
           </>
         )}
-        <Link to="/chat">chat with AI</Link>
+        <Link to="/chat">Chat with AI</Link>
       </nav>
     </div>
   );

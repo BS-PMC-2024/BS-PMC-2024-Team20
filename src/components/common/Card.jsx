@@ -7,6 +7,7 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { app } from '../../connections/firebaseConfig';
 import { addTask, markTaskAsDone } from '../../services/auth';
 import '../../styles/CalendarCard.css';
+import '../../styles/transitionPages.css';
 
 const db = getFirestore(app);
 //git add src\components\common\Card.jsx

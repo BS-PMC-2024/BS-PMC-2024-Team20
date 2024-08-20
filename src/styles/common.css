@@ -10,6 +10,7 @@ body {
   background-color: #f4f4f4;
   color: #333;
   overflow-x: hidden; /* מונע גלילה אופקית */
+  animation: fadeIn 0.5s ease-out; /* אנימציה לטעינת העמוד */
 }
 
 body, html {
@@ -19,13 +20,12 @@ body, html {
   flex-direction: column;
 }
 
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #152b26; 
+  background-color: #37514b; 
   color: white;
   height: 60px;
   border-radius: 30px;
@@ -51,6 +51,7 @@ body, html {
   margin-top: 5px;
   transition: transform 0.3s ease, font-size 0.3s ease; 
 }
+
 .left-section a:hover {
   transform: scale(1.1); 
 }
@@ -77,30 +78,69 @@ body, html {
   color: white;
   font-size: 24px;
 }
-/* 
-.header .nav-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 24px;
-  transition: transform 0.3s ease;
-}
-
-.header .nav-links a:hover {
-  transform: scale(1.1);
-} */
 
 .side-navbar {
   width: 250px;
-  background-color: #6c827d; 
+  background-color: #6c827d;
   color: white;
   height: calc(100vh - 80px);
   position: fixed;
-  top: 80px; /* מתאים לגובה ההדר */
+  top: 80px;
   left: 10px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  z-index: 100; /* וודא שהוא מעל התוכן */
+}
+
+.side-navbar .nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px 15px;
+  margin: 5px 0;
+  background-color: #007bff;
+  color: white;
+  text-align: left; /* יישור הטקסט לשמאל */
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.side-navbar .nav-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.side-navbar .nav-button:active {
+  background-color: #003a80;
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.side-navbar .nav-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 91, 255, 0.3);
+}
+
+.side-navbar .nav-button.active {
+  background-color: #1E3A8A;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.side-navbar .nav-button.active:hover {
+  background-color: #164a87;
+}
+
+.side-navbar .nav-button.active:focus {
+  box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.3);
 }
 
 .side-navbar .nav-links {
@@ -113,28 +153,12 @@ body, html {
   color: white;
   text-decoration: none;
   font-size: 18px;
+  transition: color 0.3s ease, font-size 0.3s ease;
 }
 
 .side-navbar .nav-links a:hover {
-  font-size: 20px; /* קישור יגדל כשהעכבר נמצא מעליו */
-}
-
-.nav-button {
-  display: block; /* לוודא שהקישור מוצג כבלוק */
-  padding: 10px;
-  margin: 5px 0; /* מרווח בין הכפתורים */
-  background-color: #007bff;
-  color: white;
-  text-align: center; /* לוודא שהטקסט במרכז */
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  text-decoration: none; /* הסרת הקו התחתי מהקישור */
-
-}
-
-.nav-button:hover {
-  background-color: #0056b3;
+  color: #c1e1dd; /* שינוי צבע הקישור בריחוף */
+  font-size: 20px; /* הגדלת גודל הפונט בריחוף */
 }
 
 .main-content {
@@ -144,7 +168,7 @@ body, html {
   margin-right: 0; /* מרווח מהקצה הימני */
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* צל עמוק יותר */
   height: calc(100vh - 130px); /* מתאים לגובה המסך */
   width: calc(100% - 290px);
   overflow-y: auto; /* מאפשר גלילה במידת הצורך */
@@ -171,6 +195,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px; /* Add some padding to avoid the modal sticking to the screen edges */
   z-index: 1000;
 }
 
@@ -448,6 +473,7 @@ li {
 .swal-button:hover {
   background-color: #164a87 !important;
 }
+
 .homepage-container {
   max-width: 800px;
   margin: 0 auto;
@@ -530,13 +556,11 @@ li {
   }
 }
 
-
 .error {
   color: red;
   font-weight: bold;
   margin-top: 10px;
 }
-
 
 .tooltip-icon {
   margin-left: 8px;

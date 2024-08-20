@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/iconPop-up.css';
+import '../../styles/transitionPages.css';
 
 const ChatIcon = () => {
   const [isVisible, setIsVisible] = useState(true);

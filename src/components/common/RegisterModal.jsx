@@ -7,6 +7,7 @@ import '../../styles/survey.css';
 import { Tooltip, TooltipWrapper } from 'react-tooltip'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import '../../styles/transitionPages.css';
 
 
 const RegisterModal = ({ isOpen, onClose }) => {

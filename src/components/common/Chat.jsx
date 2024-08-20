@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { FaPaperPlane } from 'react-icons/fa';
 import '../../styles/chat.css';
+import '../../styles/transitionPages.css';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -56,7 +58,7 @@ const Chat = () => {
           placeholder="Type here your message... "
           disabled={loading} // נטרול תיבת הטקסט בזמן טעינה
         />
-        <button onClick={sendMessage} disabled={loading}>SEND</button> {/* נטרול הכפתור בזמן טעינה */}
+        <button onClick={sendMessage} disabled={loading}>SEND <FaPaperPlane /></button> {/* נטרול הכפתור בזמן טעינה */}
       </div>
       <div className="chat-guidelines">
         <h2>Instructions for an effective conversation with our chat:</h2>

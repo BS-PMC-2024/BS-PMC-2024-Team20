@@ -1,0 +1,41 @@
+/* כניסה לדף */
+.fade-enter {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95); /* הזזה למטה והקטנה */
+  }
+  
+  .fade-enter-active {
+    opacity: 1;
+    transform: translateY(0) scale(1); /* חזרה לגודל מלא */
+    transition: opacity 300ms, transform 300ms ease-in-out; /* מעבר חלק */
+  }
+  
+  /* יציאה מהדף */
+  .fade-exit {
+    opacity: 1;
+    transform: translateY(0) scale(1); /* מצב התחלה */
+  }
+  
+  .fade-exit-active {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95); /* הזזה למעלה והקטנה */
+    transition: opacity 300ms, transform 300ms ease-in-out; /* מעבר חלק */
+  }
+  
+  /* שדרוג נוסף: אפקט קל של ריחוף מצד לצד */
+  .fade-enter-active {
+    animation: hoverEffect 0.5s ease-in-out; /* ריחוף קל בזמן הכניסה */
+  }
+  
+  @keyframes hoverEffect {
+    0% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  

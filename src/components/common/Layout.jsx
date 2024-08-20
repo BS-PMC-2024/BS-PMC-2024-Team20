@@ -3,6 +3,7 @@ import React from 'react';
 import TopNavbar from './TopNavbar';
 import SideNavbar from './SideNavbar';
 import '../../styles/common.css';
+import '../../styles/transitionPages.css';
 
 const Layout = ({ children, user, role, onOpenLogin, onLogout }) => {
   return (

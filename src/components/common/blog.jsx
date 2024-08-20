@@ -3,6 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getRole, fetchBlogMessages, addBlogMessage, clearBlog,getRoleByEmail } from '../../services/auth'; 
 import '../../styles/common.css';
 import '../../styles/blog.css';
+import '../../styles/transitionPages.css';
 
 const auth = getAuth();
 

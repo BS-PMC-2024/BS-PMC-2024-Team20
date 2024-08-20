@@ -4,6 +4,7 @@ import '../../styles/common.css';
 import '../../styles/Footer.css';
 import { getAuth } from 'firebase/auth';
 import { getRole } from '../../services/auth';
+import '../../styles/transitionPages.css';
 
 const Footer = () => { 
   const auth = getAuth();
