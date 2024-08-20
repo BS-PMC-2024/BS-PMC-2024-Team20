@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { getAuth } from 'firebase/auth';
 import { getAllUsers, sendMessage, receiveMessages, getRole } from '../../services/auth';
 import '../../styles/Communication.css';

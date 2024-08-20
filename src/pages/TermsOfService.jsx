@@ -4,7 +4,7 @@ import './../styles/common.css';
 
 const TermsOfService = () => {
   return (
-    <div className="terms-of-service">
+    <>
       <h1>Terms of Service</h1>
       <section>
         <h2><i className="fas fa-info-circle"></i> Welcome</h2>
@@ -43,7 +43,7 @@ const TermsOfService = () => {
           <li>The website will not be liable for any damages resulting from the use of the website.</li>
         </ul>
       </section>
-    </div>
+    </>
   );
 };
 

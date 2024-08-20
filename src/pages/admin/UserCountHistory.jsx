@@ -1,46 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { getUserCountHistory } from '../../services/auth';
-import { Line } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
-import Modal from 'react-modal';
 
-const UserCountHistory = ({ isOpen, onRequestClose }) => {
-  const [userCountHistory, setUserCountHistory] = useState([]);
+const UserCountHistory = () => {
+  const [userCount, setUserCount] = useState(0);
 
   useEffect(() => {
     const fetchUserCountHistory = async () => {
       const history = await getUserCountHistory();
-      setUserCountHistory(history);
+      if (history.length > 0) {
+        const latestCount = history[history.length - 1].count;
+        setUserCount(latestCount);
+      }
     };
 
     fetchUserCountHistory();
   }, []);
 
+  const targetCount = 50;
+  const remainingCount = targetCount - userCount;
+
   const chartData = {
-    labels: userCountHistory.map(data => data.time.toLocaleString()),
+    labels: ['Current Users', 'Remaining to 100'],
     datasets: [
       {
-        label: 'User Count Over Time',
-        data: userCountHistory.map(data => data.count),
-        fill: false,
-        borderColor: 'rgba(75,192,192,1)',
-        tension: 0.1
-      }
-    ]
+        data: [userCount, remainingCount > 0 ? remainingCount : 0],
+        backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+        hoverBackgroundColor: ['rgba(54, 162, 235, 0.8)', 'rgba(255, 99, 132, 0.8)'],
+        borderWidth: 2,
+      },
+    ],
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      overlayClassName="custom-modal-overlay"
-      className="custom-modal-content"
-      contentLabel="User Count History"
-    >
-      <h2>User Count Over Time</h2>
-      <button onClick={onRequestClose}>Close</button>
-      <Line data={chartData} />
-    </Modal>
+    <div>
+      <h2>User Count Progress</h2>
+      <Pie data={chartData} />
+    </div>
   );
 };
 

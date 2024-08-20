@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 
     //git add src\pages\admin\ManageUsers.jsx
-  //git commit -m "BSPMS2420-75 <ManageUsers - update>"
+//git commit -m "BSPMS2420-95 <ManageUsers-Extending an existing feature>"
 //git push origin ShimonBaruch
 
 const ManageUsers = () => {
@@ -44,9 +44,7 @@ const ManageUsers = () => {
     }
   };
 
-  //git add src\pages\admin\ManageUsers.jsx
-//git commit -m "BSPMS2420-76 <handleShowSessionAverage>"
-//git push origin ShimonBaruch
+
   const handleShowSessionAverage = async (uid, email) => {
     try {
       const averageTime = await getUserSessionAverage(uid);

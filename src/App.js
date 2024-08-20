@@ -11,10 +11,9 @@ import TeacherDashboard from './pages/teacher/TeacherDashboard';
 import ManageUsers from './pages/admin/ManageUsers';
 import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
+import { updateSurveyAverage } from './services/auth';
 import  saveUserSession  from './services/saveUserSession';
-
-
-
+import CustomSurvey from './components/common/CustomSurvey' ;
 
 import Blog from './components/common/blog';
 // Communication
@@ -31,7 +30,9 @@ import ViewStudent from './pages/teacher/ViewStudent';
 import ManageStudents from './pages/teacher/ManageStudents';
 
 import AdminWorkingHours from './pages/admin/AdminWorkingHours';
-import RecordWorkingHours from './pages/admin/RecordWorkingHours'
+import RecordWorkingHours from './pages/admin/RecordWorkingHours';
+import askSurvey from './pages/admin/askSurvey';
+import { saveUserFeedback } from './services/auth';
 
 import StudentRecommendations from './pages/student/StudentRecommendations';
 
@@ -75,6 +76,23 @@ const App = () => {
 
   const handleLogout = async () => {
     try {
+      await updateSurveyAverage( (await askSurvey()).value);
+      
+      const { value: feedback } = await Swal.fire({
+        title: 'We value your feedback!',
+        input: 'textarea',
+        inputPlaceholder: 'Write your suggestions here...',
+        inputAttributes: {
+          'aria-label': 'Write your suggestions here',
+          maxlength: 100,
+        },
+        showCancelButton: true,
+      });
+  
+      if (feedback) {
+        await saveUserFeedback(feedback);
+      }
+
       await saveUserSession("logout"); 
       await auth.signOut();
       setUser(null);
@@ -101,12 +119,20 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/terms-of-service" element={<TermsOfService />} /> 
-        {role === 'student' && <Route path="/student/dashboard" element={<StudentDashboard />} />}
+        {role === 'student' &&  <Route path="/student/dashboard" element={<StudentDashboard /> } />}
         {role === 'student' && (
         <>
           <Route path="/student/StudentRecommendations" element={<StudentRecommendations />} />
         </>
         )}
+        {role === 'student' && (
+        <>
+            <Route path="/student/dashboard" element={<StudentDashboard /> } />
+            <Route path="/customSurvey" element={< CustomSurvey /> } />
+        </>
+
+        )}
+
         {role === 'admin' && (
           <>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -114,6 +140,7 @@ const App = () => {
             <Route path="/contact-admin" element={<ContactAdmin />} />
             <Route path="/admin/working-hours" element={<AdminWorkingHours />} />
             <Route path="/admin/record-working-hours" element={<RecordWorkingHours />} />
+            
            
           </>
         )}

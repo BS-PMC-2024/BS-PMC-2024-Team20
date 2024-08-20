@@ -5,6 +5,8 @@ import { getFirestore, doc, getDoc, getDocs, collection } from 'firebase/firesto
 import { app } from '../../connections/firebaseConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTasks, faEnvelope, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 import 'react-calendar/dist/Calendar.css';
 import { Card, TaskCard, TimerCard, CalendarCard } from '../../components/common/Card';
@@ -20,9 +22,22 @@ import '../../styles/CalendarCard.css';
 
 const StudentDashboard = () => {
   const [firstName, setFirstName] = useState('');
+  const [showSurveyAlert, setShowSurveyAlert] = useState(true);
+  const navigate = useNavigate();
   const [lastName, setLastName] = useState('');
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [completedTasks, setCompletedTasks] = useState([]);
+
+  const handleSurveyRedirect = () => {
+    setShowSurveyAlert(false);
+    navigate('/customSurvey');
+  };
+
+  const handleDoNotShowAgain = () => {
+    // שמור במשתמש/בדאטה כדי לא להציג שוב את ההודעה
+    localStorage.setItem('dontShowSurveyAlert', 'true');
+    setShowSurveyAlert(false);
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -57,6 +72,12 @@ const StudentDashboard = () => {
       setCurrentDateTime(new Date());
     }, 1000);
 
+    // בדוק אם המשתמש בחר לא להציג את ההודעה שוב
+    const dontShowAgain = localStorage.getItem('dontShowSurveyAlert');
+    if (dontShowAgain === 'true') {
+      setShowSurveyAlert(true);
+    }
+
     return () => clearInterval(timer);
   }, []);
 
@@ -71,6 +92,41 @@ const StudentDashboard = () => {
       <div className="date-time">
         <p>{formatDateTime(currentDateTime)}</p>
       </div>
+      {showSurveyAlert && (
+        <SweetAlert
+          title="Hey Welcome"
+          warning
+          showCancel
+          confirmBtnText="Enter Survey"
+          cancelBtnText="Maybe Later"
+          onConfirm={handleSurveyRedirect}
+          onCancel={() => setShowSurveyAlert(false)}
+          customButtons={
+            <>
+              <button
+                className="btn btn-primary"
+                onClick={handleSurveyRedirect}
+              >
+                Enter Survey
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setShowSurveyAlert(false)}
+              >
+                Maybe Later
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={handleDoNotShowAgain}
+              >
+               Don't Show It Again
+              </button>
+            </>
+          }
+        >
+          We recommend completing a short survey to enhance your learning experience.
+        </SweetAlert>
+      )}
       <div className="dashboard-container">
         <CalendarCard />
         <Card icon={<FontAwesomeIcon icon={faTasks} />} title="Completed Tasks">
@@ -95,3 +151,8 @@ const StudentDashboard = () => {
 };
 
 export default StudentDashboard;
+
+
+
+
+

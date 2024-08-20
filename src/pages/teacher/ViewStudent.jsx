@@ -84,7 +84,7 @@ const ViewStudent = () => {
         </h3>
         <form onSubmit={handleSave}>
           <div className="form-group">
-            <label htmlFor="impression">:רושם</label>
+            <label htmlFor="impression">Impression:</label>
             <textarea
               id="impression"
               name="impression"
@@ -94,7 +94,7 @@ const ViewStudent = () => {
             ></textarea>
           </div>
           <div className="form-group">
-            <label htmlFor="improvement">:שיפור</label>
+            <label htmlFor="improvement">Improvement:</label>
             <textarea
               id="improvement"
               name="improvement"
@@ -104,7 +104,7 @@ const ViewStudent = () => {
             ></textarea>
           </div>
           <div className="form-group">
-            <label htmlFor="recommendations">:המלצות</label>
+            <label htmlFor="recommendations">Recommendations:</label>
             <textarea
               id="recommendations"
               name="recommendations"
