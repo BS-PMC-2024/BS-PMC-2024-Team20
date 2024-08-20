@@ -1,57 +1,153 @@
 /* עיצוב המיכל של הדשבורד */
 .dashboard-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-  }
-  
-  /* עיצוב תיבת ה-Cards */
-  .card {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    flex-basis: calc(50% - 10px);
-    padding: 20px;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-  }
-  
-  /* אפקט כאשר מעבירים את העכבר מעל התיבה */
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  
-  /* עיצוב האייקון בתוך התיבה */
-  .card-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #175965; /* כחול סטנדרטי */
-  }
-  
-  /* עיצוב התוכן בתוך התיבה */
-  .card-content {
-    margin-top: 10px;
-  }
-  
-  /* עיצוב הכפתורים */
-  button {
-    background-color: #2b442e; /* כחול סטנדרטי */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* אפקט כאשר מעבירים את העכבר מעל הכפתור */
-  button:hover {
-    background-color: #0056b3; /* כחול כהה */
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+/* עיצוב תיבת ה-Cards */
+.card {
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  flex-basis: calc(50% - 10px);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+}
+
+/* אפקט כאשר מעבירים את העכבר מעל התיבה */
+.card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  background-color: #e6f7ff;
+}
+
+/* עיצוב האייקון בתוך התיבה */
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #0e0f11; /* כחול עם נוכחות */
+}
+
+/* עיצוב הכפתורים */
+button {
+  background-color: #3b5998; 
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 8px 4px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.4s ease, transform 0.3s ease;
+}
+
+/* אפקט כאשר מעבירים את העכבר מעל הכפתור */
+button:hover {
+  background-color: #2d4373; /* כחול כהה יותר */
+  transform: scale(1.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* עיצוב חדש לטיימר */
+.timer-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: conic-gradient(
+      #00c6ff 0%,
+      #0072ff calc(var(--timer-progress) * 1%),
+      #f0f0f0 calc(var(--timer-progress) * 1%)
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.timer-container[data-time-left='10'] {
+  background: conic-gradient(
+      #ffbf00 0%,
+      #ff8000 calc(var(--timer-progress) * 1%),
+      #f0f0f0 calc(var(--timer-progress) * 1%)
+  );
+}
+
+.timer-container[data-time-left='5'] {
+  background: conic-gradient(
+      #ff4000 0%,
+      #ff0000 calc(var(--timer-progress) * 1%),
+      #f0f0f0 calc(var(--timer-progress) * 1%)
+  );
+}
+
+.timer-container .time-text {
+  position: absolute;
+  z-index: 2;
+  font-size: 1.5rem;
+}
+
+/* עיצוב הכפתורים בטיימר */
+.timer-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #0072ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.timer-button:hover {
+  background-color: #0056b3;
+}
+
+.timer-button.reset {
+  background-color: #f44336;
+}
+
+.timer-button.reset:hover {
+  background-color: #d32f2f;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.timer-container.shake {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+/* עיצוב בחירת הצליל */
+.sound-selection {
+  margin-top: 15px;
+}
+
+.sound-selection label {
+  margin-right: 10px;
+}
+
+.sound-selection select {
+  padding: 5px;
+  border-radius: 5px;
+}

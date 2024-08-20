@@ -4,21 +4,13 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import { app } from '../../connections/firebaseConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTasks, faEnvelope, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { faTasks, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import SweetAlert from 'react-bootstrap-sweetalert';
 
 import 'react-calendar/dist/Calendar.css';
-import { Card, TaskCard, TimerCard, CalendarCard } from '../../components/common/Card';
+import { Card, TaskCard, CalendarCard, TimerCard } from '../../components/common/Card';
 import '../../styles/CalendarCard.css';
-
-
-
-
-//git add src\pages\student\StudentDashboard.jsx
-//git commit -m "BSPMS2420-85 <StudentDashboard- tools display>"
-//git push origin ShimonBaruch
-
 
 const StudentDashboard = () => {
   const [firstName, setFirstName] = useState('');
@@ -27,6 +19,7 @@ const StudentDashboard = () => {
   const [lastName, setLastName] = useState('');
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [completedTasks, setCompletedTasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   const handleSurveyRedirect = () => {
     setShowSurveyAlert(false);
@@ -34,9 +27,24 @@ const StudentDashboard = () => {
   };
 
   const handleDoNotShowAgain = () => {
-    // שמור במשתמש/בדאטה כדי לא להציג שוב את ההודעה
     localStorage.setItem('dontShowSurveyAlert', 'true');
     setShowSurveyAlert(false);
+  };
+
+  const handleTaskComplete = (task) => {
+    setCompletedTasks((prevTasks) => [...prevTasks, task]);
+  };
+
+  const handleTaskDone = (taskId) => {
+    const updatedTasks = tasks.map(task => 
+      task.id === taskId ? { ...task, done: true } : task
+    );
+    setTasks(updatedTasks);
+
+    const completedTask = updatedTasks.find(task => task.id === taskId && task.done);
+    if (completedTask) {
+      handleTaskComplete(completedTask);
+    }
   };
 
   useEffect(() => {
@@ -57,22 +65,23 @@ const StudentDashboard = () => {
       }
     };
 
-    const fetchCompletedTasks = async () => {
+    const fetchTasks = async () => {
       const db = getFirestore(app);
       const tasksSnapshot = await getDocs(collection(db, 'tasks'));
       const tasksData = tasksSnapshot.docs.map(doc => doc.data());
+      setTasks(tasksData);
+
       const completed = tasksData.filter(task => task.done === true);
       setCompletedTasks(completed);
     };
 
     fetchUserData();
-    fetchCompletedTasks();
+    fetchTasks();
 
     const timer = setInterval(() => {
       setCurrentDateTime(new Date());
     }, 1000);
 
-    // בדוק אם המשתמש בחר לא להציג את ההודעה שוב
     const dontShowAgain = localStorage.getItem('dontShowSurveyAlert');
     if (dontShowAgain === 'true') {
       setShowSurveyAlert(true);
@@ -130,29 +139,28 @@ const StudentDashboard = () => {
       <div className="dashboard-container">
         <CalendarCard />
         <Card icon={<FontAwesomeIcon icon={faTasks} />} title="Completed Tasks">
-          <ul>
-            {completedTasks.map((task, index) => (
-              <li key={index}>{task.title} - Due: {task.dueDate}</li>
-            ))}
+          <ul className="card-content open">
+            {completedTasks.length > 0 ? (
+              completedTasks.map((task, index) => (
+                <li key={index}>{task.title} - Due: {task.dueDate}</li>
+              ))
+            ) : (
+              <li>No tasks completed yet.</li>
+            )}
           </ul>
         </Card>
-        <TaskCard />
+        <TaskCard tasks={tasks} onComplete={handleTaskDone} />
         <Card icon={<FontAwesomeIcon icon={faLightbulb} />} title="Study Tips">
-          <ul>
+          <ul className="card-content open">
             <li>Take regular breaks to stay focused.</li>
             <li>Organize your study space.</li>
             <li>Use mnemonic devices to remember information.</li>
           </ul>
         </Card>
-        <TimerCard />
+        <TimerCard /> {/* הצגת ה-TimerCard */}
       </div>
     </>
   );
 };
 
 export default StudentDashboard;
-
-
-
-
-
