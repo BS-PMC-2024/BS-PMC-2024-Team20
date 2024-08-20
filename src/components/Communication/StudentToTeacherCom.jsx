@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
-import { getAllUsers, sendMessage, receiveMessages } from '../../services/auth';
+import { getAllUsers, sendMessage, receiveMessages, markMessageAsRead } from '../../services/auth'; 
 import '../../styles/Communication.css';
 import '../../styles/common.css';
 
@@ -16,7 +16,6 @@ const StudentTeacherCom = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!currentUser) {
-        
         return;
       }
 
@@ -69,44 +68,71 @@ const StudentTeacherCom = () => {
     }
   };
 
+  const handleMarkAsRead = async (messageId) => {
+    try {
+      await markMessageAsRead(messageId);
+      const updatedConversation = conversation.map(msg => 
+        msg.id === messageId ? { ...msg, isRead: true } : msg
+      );
+      setConversation(updatedConversation);
+    } catch (error) {
+      console.error('Error marking message as read:', error);
+      setStatus('Failed to mark message as read.');
+    }
+  };
+
+  const handleReply = (teacherEmail) => {
+    setSelectedTeacher(teacherEmail);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    
-    <div className="communication-container">
-      <h2>Communication</h2>
-      {currentUser && (
-        <div className="communication-form">
-          <label htmlFor="teacher-select">Choose a teacher:</label>
-          <select
-            id="teacher-select"
-            value={selectedTeacher}
-            onChange={(e) => setSelectedTeacher(e.target.value)}
-          >
-            <option value="">--Select a Teacher--</option>
-            {teachers.map((teacher) => (
-              <option key={teacher.id} value={teacher.email}>
-                {teacher.firstName} {teacher.lastName}
-              </option>
-            ))}
-          </select>
-          <textarea
-            placeholder="Write your message here..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          ></textarea>                              {/*fix git */}
-          <button onClick={handleSendMessage}>Send Message</button> {/*//git commit -m "BSPMS2420-35 create btn for com (StudentToTeacherCom)" */}
-          {status && <p className="status-message">{status}</p>} {/*//git commit -m "BSPMS2420-36 create page for com (StudentToTeacherCom)" */}
-        </div>
-      )}
+    <>
+      <div className="message-form-container">
+        {currentUser && (
+          <div className="communication-form">
+            <label htmlFor="teacher-select">Choose a teacher:</label>
+            <select
+              id="teacher-select"
+              value={selectedTeacher}
+              onChange={(e) => setSelectedTeacher(e.target.value)}
+            >
+              <option value="">--Select a Teacher--</option>
+              {teachers.map((teacher) => (
+                <option key={teacher.id} value={teacher.email}>
+                  {teacher.firstName} {teacher.lastName}
+                </option>
+              ))}
+            </select>
+            <textarea
+              placeholder="Write your message here..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            ></textarea>                              
+            <button className="button-action" onClick={handleSendMessage}>Send Message</button> 
+            {status && <p className="status-message">{status}</p>} 
+          </div>
+        )}
+      </div>
+      
       <div className="conversation-container">
-        <h3>Conversation</h3>
         {conversation.map((msg) => (
-          <div key={msg.id} className="message">
-            <p><strong>{msg.fromUser}:</strong> {msg.message}</p>
+          <div key={msg.id} className={`message ${msg.fromUser === currentUser.email ? 'from-user' : 'to-user'}`}>
+            <p><strong>{msg.fromUser}</strong></p>
+            <p>{msg.message}</p>
             <small>{new Date(msg.timestamp.seconds * 1000).toLocaleString()}</small>
+            <div className="button-group">
+              {msg.fromUser !== currentUser.email && !msg.isRead && (
+                <button className="button-action" onClick={() => handleMarkAsRead(msg.id)}>נקרא</button>
+              )}
+              {msg.fromRole === 'teacher' && (
+                <button className="button-action" onClick={() => handleReply(msg.fromUser)}>Reply</button>
+              )}
+            </div>
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

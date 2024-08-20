@@ -166,6 +166,9 @@ import React, { useState } from 'react';
 import { registerUser } from '../../services/auth';
 import '../../styles/common.css'; 
 import '../../styles/survey.css';
+import { Tooltip, TooltipWrapper } from 'react-tooltip'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 const RegisterModal = ({ isOpen, onClose }) => {
@@ -389,6 +392,14 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setLearningGoals(e.target.value)}
                 rows="2"
               />
+               <TooltipWrapper>
+                <FontAwesomeIcon
+                  icon={faQuestionCircle}
+                  style={{ marginLeft: '8px', color: '#007bff', cursor: 'pointer' }} // Blue color
+                  data-tooltip-id="learningGoalsTooltip"
+                />
+                <Tooltip id="learningGoalsTooltip">For example: studying for a test, routine studies, etc</Tooltip>
+              </TooltipWrapper>
             </div>
             <div className="form-group">
               <label htmlFor="learning-strategies">Preferred learning strategies:</label>
@@ -398,6 +409,14 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 onChange={(e) => setLearningStrategies(e.target.value)}
                 rows="2"
               />
+              <TooltipWrapper>
+                <FontAwesomeIcon
+                  icon={faQuestionCircle}
+                  style={{ marginLeft: '8px', color: '#007bff', cursor: 'pointer' }} // Blue color
+                  data-tooltip-id="learningStrategiesTooltip"
+                />
+                <Tooltip id="learningStrategiesTooltip">For example: timed study, structured agenda, etc</Tooltip>
+              </TooltipWrapper>
             </div>
             <div className="form-group">
               <label htmlFor="emotional-support">emotional support:</label>

@@ -1,8 +1,7 @@
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail  } from 'firebase/auth';
-import { getFirestore, doc,setDoc, getDoc, collection, getDocs,addDoc, updateDoc,serverTimestamp, deleteDoc, query  } from 'firebase/firestore';
+import { getFirestore, doc,setDoc, getDoc, collection, getDocs,addDoc, updateDoc,serverTimestamp, deleteDoc, query, where  } from 'firebase/firestore';
 
 import { app } from '../connections/firebaseConfig'; 
-
 
 
 const auth = getAuth(app);
@@ -17,6 +16,66 @@ export const registerUser = async (email, password, firstName, lastName, role) =
   await updateUserCountHistory();
   return user;
 };
+
+// export const saveStudentOverview = async (studentId, overviewData) => {
+//   console.log('saveStudentOverview', studentId,overviewData);
+//   try {
+//     const studentOverviewRef = doc(db, 'studentOverview', studentId);
+//     await setDoc(studentOverviewRef, overviewData);
+//   } catch (error) {
+//     console.error('Error saving student overview:', error);
+//     throw error;
+//   }
+// };
+
+// export const fetchStudentOverview = async (studentId) => {
+//   try {
+//     const studentOverviewRef = doc(db, 'studentOverview', studentId);
+//     const docSnap = await getDoc(studentOverviewRef);
+
+//     if (docSnap.exists()) {
+//       return docSnap.data();
+//     } else {
+//       throw new Error('No such document!');
+//     }
+//   } catch (error) {
+//     console.error('Error fetching student overview:', error);
+//     throw error;
+//   }
+// };
+
+export const getStudentOverview = async (studentId) => { 
+  try { if (!studentId) { throw new Error('Student ID is required.');
+
+   } 
+  const studentDocRef = doc(db, 'studentOverview', studentId); 
+  const studentDoc = await getDoc(studentDocRef); 
+  if (!studentDoc.exists()) {
+     console.log(`No student overview found for ID: ${studentId}`); return null; 
+    } 
+    const studentData = studentDoc.data(); 
+    console.log(studentData); return studentData; 
+  } catch (error) { 
+    console.error('Error fetching student overview:', error);
+     throw error; } 
+  };
+
+export const countUnreadMessages = async (userEmail) => {
+  try {
+    const q = query(
+      collection(db, 'userMessages'),
+      where('toUser', '==', userEmail),
+      where('isRead', '==', false)
+    );
+
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.size;
+  } catch (error) {
+    console.error('Error counting unread messages:', error);
+    return 0;
+  }
+};
+
 
 export const isTermsAccepted = (termsAccepted) => {
   return termsAccepted;
@@ -144,6 +203,25 @@ export const addBlogMessage = async (content, sender) => {
   });
 };
 
+export const getRoleByEmail = async (email) => {
+  try {
+    const usersRef = collection(db, 'userRoles');
+    const q = query(usersRef, where('email', '==', email));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const userDoc = querySnapshot.docs[0]; // Assuming email is unique and there's only one match
+      const userData = userDoc.data();
+      return userData.role; // Assuming the role is stored under 'role'
+    } else {
+      console.warn('No user found with email: ${email}');
+      return null; // Return null if no user is found
+    }
+  } catch (error) {
+    console.error('Error fetching role by email:', error);
+    return null; // Return null in case of an error
+  }
+};
 
 
 export const clearBlog = async () => {
@@ -176,13 +254,27 @@ export const sendMessage = async (fromRole, fromUser, toRole, toUser, message) =
       toUser,
       message,
       sender: user.email,
-      timestamp: serverTimestamp()
+      timestamp: serverTimestamp(),
+      isRead: false  // add a flag indicating whether the message is read
     });
   } catch (error) {
     console.error('Error sending message:', error);
     throw new Error('Failed to send message.');
   }
 };
+//add a function to indicate that the message is read
+export const markMessageAsRead = async (messageId) => {
+  try {
+    const messageRef = doc(db, 'userMessages', messageId);
+    await updateDoc(messageRef, {
+      isRead: true
+    });
+  } catch (error) {
+    console.error('Error marking message as read:', error);
+    throw new Error('Failed to mark message as read.');
+  }
+};
+
 
 export const receiveMessages = async (userEmail, role) => {
   const messagesSnapshot = await getDocs(collection(db, 'userMessages'));
@@ -269,3 +361,59 @@ export const recordWorkingHours = async (date, hours) => {
     time: serverTimestamp()
   });
 };
+//git add ai-aid\src\services\auth.jsx
+//git commit -m "BSPMS2420-82 <getUserSessionAverage>"
+//git push origin ShimonBaruch
+export const getUserSessionAverage = async (uid) => {
+  const userRef = doc(db, "userlogtime", uid);
+  const docSnap = await getDoc(userRef);
+
+  if (!docSnap.exists()) {
+    return "N/A";// if no data is available
+  }
+
+  const userData = docSnap.data();
+  const loginTimes = userData.loginTimes || [];
+  const logoutTimes = userData.logoutTimes || [];
+
+  if (loginTimes.length === 0 || logoutTimes.length === 0) {
+    return "N/A"; 
+  }
+
+  let totalDuration = 0;
+  for (let i = 0; i < loginTimes.length && i < logoutTimes.length; i++) {
+    const loginTime = new Date(loginTimes[i]).getTime();
+    const logoutTime = new Date(logoutTimes[i]).getTime();
+    totalDuration += (logoutTime - loginTime);
+  }
+
+  const averageDuration = totalDuration / loginTimes.length;
+  return Math.round(averageDuration / 60000); 
+};
+
+export const addTask = async (taskTitle, dueDate) => {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      await addDoc(collection(db, 'tasks'), {
+        uid: user.uid,
+        title: taskTitle,
+        dueDate: dueDate,
+        done: false 
+      });
+    }
+  } catch (error) {
+    console.error('Error adding task: ', error);
+  }
+};
+export const markTaskAsDone = async (taskId) => {
+  try {
+    const taskRef = doc(db, 'tasks', taskId);
+    await updateDoc(taskRef, {
+      done: true
+    });
+  } catch (error) {
+    console.error('Error marking task as done: ', error);
+  }
+};
+

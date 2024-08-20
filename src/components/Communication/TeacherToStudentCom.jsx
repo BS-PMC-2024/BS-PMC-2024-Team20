@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
-import { receiveMessages, sendMessage } from '../../services/auth';
+import { receiveMessages, sendMessage, markMessageAsRead } from '../../services/auth'; 
 import '../../styles/Communication.css';
 
 const TeacherStudentCom = () => {
   const [conversation, setConversation] = useState([]);
   const [replyMessage, setReplyMessage] = useState('');
   const [replyTo, setReplyTo] = useState(null);
-  const [repliedMessages, setRepliedMessages] = useState(new Set()); // Tracking replies
   const [status, setStatus] = useState('');
   const auth = getAuth();
   const currentUser = auth.currentUser;
@@ -31,7 +30,7 @@ const TeacherStudentCom = () => {
     fetchMessages();
   }, [currentUser]);
 
-  const handleReply = async (studentEmail) => {
+  const handleReply = async (studentEmail, messageId) => {
     if (!replyMessage) {
       setStatus('Reply message cannot be empty.');
       return;
@@ -47,7 +46,6 @@ const TeacherStudentCom = () => {
       );
       setReplyMessage('');
       setStatus('Reply sent successfully.');
-      setRepliedMessages(new Set([...repliedMessages, studentEmail])); // Add this student to the replied set
 
       // Refresh conversation
       const conv = await receiveMessages(currentUser.email, 'student');
@@ -59,17 +57,36 @@ const TeacherStudentCom = () => {
     }
   };
 
+  const handleMarkAsRead = async (messageId) => {
+    try {
+      await markMessageAsRead(messageId);
+      const updatedConversation = conversation.map(msg => 
+        msg.id === messageId ? { ...msg, isRead: true } : msg
+      );
+      setConversation(updatedConversation);
+    } catch (error) {
+      console.error('Error marking message as read:', error);
+      setStatus('Failed to mark message as read.');
+    }
+  };
+
   return (
     <div className="communication-container">
       <h2>Student Messages</h2>
       <div className="conversation-container">
         {conversation.map((msg) => (
-          <div key={msg.id} className="message">
-            <p><strong>{msg.fromUser}:</strong> {msg.message}</p>
+          <div key={msg.id} className={`message ${msg.fromUser === currentUser.email ? 'from-user' : 'to-user'}`}>
+            <p><strong>{msg.fromUser}</strong></p>
+            <p>{msg.message}</p>
             <small>{new Date(msg.timestamp.seconds * 1000).toLocaleString()}</small>
-            {msg.fromRole === 'student' && !repliedMessages.has(msg.fromUser) && (
-              <button onClick={() => setReplyTo(msg.fromUser)}>Reply</button>
-            )}
+            <div className="button-group">
+              {msg.fromUser !== currentUser.email && !msg.isRead && (
+                <button className="button-action" onClick={() => handleMarkAsRead(msg.id)}>Read</button>
+              )}
+              {msg.fromRole === 'student' && (
+                <button className="button-action" onClick={() => setReplyTo(msg.fromUser)}>Reply</button>
+              )}
+            </div>
           </div>
         ))}
       </div>
@@ -81,7 +98,7 @@ const TeacherStudentCom = () => {
             value={replyMessage}
             onChange={(e) => setReplyMessage(e.target.value)}
           ></textarea>
-          <button onClick={() => handleReply(replyTo)}>Send Reply</button>
+          <button className="button-action" onClick={() => handleReply(replyTo)}>Send Reply</button>
           {status && <p className="status-message">{status}</p>}
         </div>
       )}

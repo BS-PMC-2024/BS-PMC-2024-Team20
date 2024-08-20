@@ -11,6 +11,11 @@ import TeacherDashboard from './pages/teacher/TeacherDashboard';
 import ManageUsers from './pages/admin/ManageUsers';
 import { auth } from './connections/firebaseConfig';
 import { getRole } from './services/auth';
+import  saveUserSession  from './services/saveUserSession';
+
+
+
+
 import Blog from './components/common/blog';
 // Communication
 import StudentTeacherTOCom from './components/Communication/StudentToTeacherCom';
@@ -27,6 +32,8 @@ import ManageStudents from './pages/teacher/ManageStudents';
 
 import AdminWorkingHours from './pages/admin/AdminWorkingHours';
 import RecordWorkingHours from './pages/admin/RecordWorkingHours'
+
+import StudentRecommendations from './pages/student/StudentRecommendations';
 
 const App = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -66,8 +73,10 @@ const App = () => {
     checkUser();
   }, [navigate, user]);
 
-  const handleLogout = () => {
-    auth.signOut().then(() => {
+  const handleLogout = async () => {
+    try {
+      await saveUserSession("logout"); 
+      await auth.signOut();
       setUser(null);
       setRole(null);
       localStorage.removeItem('userRole');
@@ -82,15 +91,22 @@ const App = () => {
       }).then(() => {
         navigate('/');
       });
-    });
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
-
+  
   return (
     <Layout user={user} role={role} onOpenLogin={() => setIsLoginOpen(true)} onLogout={handleLogout}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/terms-of-service" element={<TermsOfService />} /> 
         {role === 'student' && <Route path="/student/dashboard" element={<StudentDashboard />} />}
+        {role === 'student' && (
+        <>
+          <Route path="/student/StudentRecommendations" element={<StudentRecommendations />} />
+        </>
+        )}
         {role === 'admin' && (
           <>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -118,7 +134,7 @@ const App = () => {
         <Route path="/terms-of-service" element={<TermsOfService />} /> 
         <Route path="/chat" element={<Chat />} /> {/* הוספת הראוט לקומפוננטת Chat */}
       </Routes>
-      <LoginModal
+      <LoginModal  
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
         onSwitchToRegister={() => {
@@ -128,12 +144,14 @@ const App = () => {
         onLoginSuccess={(user, role) => {
           setUser(user);
           setRole(role);
+          saveUserSession("login"); 
           localStorage.setItem('userRole', role);
         }}
       />
       <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
-      <Footer />
-      <ChatIcon /> {/* הוספת הקומפוננטה של האייקון */}
+      
+      <ChatIcon /> {  } <Footer />
+      
     </Layout>
   );
 };
